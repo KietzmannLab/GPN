@@ -2,10 +2,10 @@
 
 import argparse
 parser = argparse.ArgumentParser(description='Obtaining hyps')
-parser.add_argument('--split', type=str, default='test')
-parser.add_argument('--r50v', type=int, default=1) # 1/2/0 - 0 is init
+parser.add_argument('--split', type=str, default='test') # train/test/val
+parser.add_argument('--r50v', type=int, default=6) # 1/2/0 - 0 is init 3 is barlowtwins (https://github.com/facebookresearch/barlowtwins), 4 is dvd-b, 5 is dinov2b, 6 is simclr
 parser.add_argument('--nfixs', type=int, default=7) # 7 is good for now
-parser.add_argument('--dataset', type=str, default='NSD') # NSD/AVS - decides glimpse size
+parser.add_argument('--dataset', type=str, default='NSD') # NSD - decides glimpse size
 args = parser.parse_args()
 
 import h5py
@@ -36,7 +36,7 @@ dataset_description = f'This dataset contains ResNet-50-v{rn50_v} avgpool activa
 
 device = 'cuda' # 'cuda', 'mps', 'cpu'
 
-actvs_dim = 2048 # for RN50
+actvs_dim = 2048 if rn50_v != 5 else 768 # for RN50 2048, 1024 for dinov2b
 
 # data_splits = ['train','test','val']; train ~ 48k, val ~ 2k, test - 73k
 data_splits = [args.split]
@@ -56,15 +56,44 @@ preprocess = transforms.Compose([
 ])
 if rn50_v == 0:
     net = resnet50()
-else:
+elif rn50_v == 1 or rn50_v == 2:
     net = resnet50(weights=weights)
+elif rn50_v == 3: # Barlow Twins
+    net = torch.hub.load(
+        'facebookresearch/barlowtwins:main',  # repo@branch
+        'resnet50',                           # entry-point in hubconf.py
+        pretrained=True,                      # pulls the 1 000-epoch weights
+        verbose=False
+        )
+elif rn50_v == 4: # DVD-B
+    net = resnet50()
+    net.fc = torch.nn.Linear(2048, 565) # DVD-B has 565-dim output (ecoset)
+    model_path = 'dvd-b-565.pth'
+    state_dict = torch.load(model_path, map_location='cpu')['state_dict']
+    state_dict = {k.replace('module._orig_mod.', ''): v for k, v in state_dict.items()}  # remove 'module._orig_mod.' prefix
+    net.load_state_dict(state_dict)
+    preprocess = transforms.Compose([
+        transforms.Resize(256, antialias=True),
+        transforms.ConvertImageDtype(torch.float)
+    ])
+elif rn50_v == 5: # not rn50 actually - dinov2b
+    net = torch.hub.load("facebookresearch/dinov2", "dinov2_vitb14")
+elif rn50_v == 6: # SimCLR
+    net = resnet50(weights=None)
+    state_dict_h = torch.load('../analysis/ResNet50 1x.pth', map_location='cpu') # your path to the simclr weights
+    net.load_state_dict(state_dict_h['state_dict'])
+    preprocess = transforms.Compose([
+        transforms.Resize(224, antialias=True),
+        transforms.ConvertImageDtype(torch.float),
+    ])
 net.to(device)
-activation = {} # remember to empty the list after each forward pass
-def get_activation(name):
-    def hook(model, input, output):
-        activation[name] = output.detach()
-    return hook
-net.avgpool.register_forward_hook(get_activation('avgpool'))
+if rn50_v != 5:
+    activation = {} # remember to empty the list after each forward pass
+    def get_activation(name):
+        def hook(model, input, output):
+            activation[name] = output.detach()
+        return hook
+    net.avgpool.register_forward_hook(get_activation('avgpool'))
 net.eval() # important!! so it uses the trained batchnorm stats
 
 print('Network is loaded. Preparing h5...\n')
@@ -89,7 +118,7 @@ with h5py.File(output_path, "w") as f:
         print('Creating fix_dg3 {} dataset with {} images, {} traces, {} fixations...\n'.format(split, int(n_imgs), int(n_fix_traces), int(n_fixs)), end='')
 
         group = f.create_group(split)
-        group.create_dataset("dg3_fix_actvs", shape=(n_imgs,n_fix_traces,n_fixs,4,actvs_dim), dtype=np.float16) # dg3/random/dg3_permute/dg3_swap, actvs
+        group.create_dataset("dg3_fix_actvs", shape=(n_imgs,n_fix_traces,n_fixs,4,actvs_dim), dtype=np.float16) # dg3/random/dg3_permute/dg3_random, actvs
         # group.create_dataset("dg3_gist_actvs", shape=(n_imgs,n_fix_traces,n_fixs,2,actvs_dim), dtype=np.float16)
         group.create_dataset("next_fix_coords", shape=(n_imgs,n_fix_traces,n_fixs-1,4,2), dtype=np.int32) # dg3/random, x/y
         group.create_dataset("next_fix_rel_coords", shape=(n_imgs,n_fix_traces,n_fixs-1,4,2), dtype=np.int32) # dg3/random, dx/dy
@@ -113,10 +142,9 @@ with h5py.File(output_path, "w") as f:
 
                 trace_rand = np.random.randint(0,im_size,[n_fixs-1,2])
 
-                dg3_swap_img_id = np.random.choice(original_data[split]['densenet_deepgaze_fixations'].shape[0], 1)[0]
-                while dg3_swap_img_id == img_id: # making sure we are not swapping with the same image
-                    dg3_swap_img_id = np.random.choice(original_data[split]['densenet_deepgaze_fixations'].shape[0], 1)[0]
-                dg3_swap_trace_id = np.random.choice(original_data[split]['densenet_deepgaze_fixations'].shape[1], 1)[0]
+                dg3_random = original_data[split]['densenet_deepgaze_fixations'][img_id,ftrace_id,:n_fixs,:]
+                for i in range(dg3_random.shape[0]-1):
+                    dg3_random[i+1,:] = original_data[split]['densenet_deepgaze_fixations'][np.random.randint(n_imgs),np.random.randint(n_fix_traces),np.random.randint(1,n_fixs),:]
 
                 im_h_glimpses = np.zeros([n_fixs*4,int(glimpse_ext),int(glimpse_ext),3],dtype=original_data[split]['data'][img_id].dtype)
 
@@ -173,16 +201,16 @@ with h5py.File(output_path, "w") as f:
 
                             im_h_glimpses[fix_id+n_fixs*fix_type,:,:,:] = im_h[y_ext_low:y_ext_high,x_ext_low:x_ext_high,:]
 
-                        elif fix_type == 3: # DG3 sequence swap
+                        elif fix_type == 3: # DG3 randomly sampled fixations post 0
 
                             if fix_id < n_fixs-1: # in fix_coords we are filling coords wrt the centre where first fixation is
-                                f[split]['next_fix_coords'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,fix_type,:] = original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id+1,:] - original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,0,:]
-                                f[split]['next_fix_rel_coords'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,fix_type,:] = original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id+1,:] - original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,:]
+                                f[split]['next_fix_coords'][img_id,ftrace_id,fix_id,fix_type,:] = dg3_random[fix_id+1,:] - dg3_random[0,:]
+                                f[split]['next_fix_rel_coords'][img_id,ftrace_id,fix_id,fix_type,:] = dg3_random[fix_id+1,:] - dg3_random[fix_id,:]
 
-                            x_ext_low = int(original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,0])
-                            x_ext_high = int(original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,0]+glimpse_ext)
-                            y_ext_low = int(original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,1])
-                            y_ext_high = int(original_data[split]['densenet_deepgaze_fixations'][dg3_swap_img_id,dg3_swap_trace_id,fix_id,1]+glimpse_ext)
+                            x_ext_low = int(dg3_random[fix_id,0])
+                            x_ext_high = int(dg3_random[fix_id,0]+glimpse_ext)
+                            y_ext_low = int(dg3_random[fix_id,1])
+                            y_ext_high = int(dg3_random[fix_id,1]+glimpse_ext)
 
                             im_h_glimpses[fix_id+n_fixs*fix_type,:,:,:] = im_h[y_ext_low:y_ext_high,x_ext_low:x_ext_high,:]
 
@@ -195,7 +223,7 @@ with h5py.File(output_path, "w") as f:
                 im_input = preprocess(torch.from_numpy(im_h_glimpses).permute(0, 3, 1, 2)).to(device)
                 _ = net(im_input)
 
-                actvs_h = activation['avgpool'].detach().cpu().numpy().squeeze()
+                actvs_h = net(im_input).detach().cpu().numpy().squeeze() if rn50_v == 5 else activation['avgpool'].detach().cpu().numpy().squeeze()
                 f[split]['dg3_fix_actvs'][img_id,ftrace_id,:,0,:] = actvs_h[:n_fixs,:]
                 f[split]['dg3_fix_actvs'][img_id,ftrace_id,:,1,:] = actvs_h[n_fixs:2*n_fixs,:]
                 f[split]['dg3_fix_actvs'][img_id,ftrace_id,:,2,:] = actvs_h[2*n_fixs:3*n_fixs,:]
@@ -208,7 +236,7 @@ with h5py.File(output_path, "w") as f:
             im_input = preprocess(torch.from_numpy(original_data[split]['data'][img_id]).unsqueeze(0).permute(0, 3, 1, 2)).to(device) 
             _ = net(im_input)
 
-            actvs_h = activation['avgpool'].detach().cpu().numpy().squeeze()
+            actvs_h = net(im_input).detach().cpu().numpy().squeeze() if rn50_v == 5 else activation['avgpool'].detach().cpu().numpy().squeeze()
             f[split]['full_image_actvs'][img_id,:] = actvs_h
 
             activation = {}
