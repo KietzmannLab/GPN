@@ -1,4 +1,4 @@
-# Glimpse Prediction Networks — self-supervised brain-aligned scene representation.
+# Glimpse Prediction Networks//self-supervised brain-aligned scene representation.
 Official codebase of the GPN project.
 
 ## Codebase map
