@@ -1,5 +1,5 @@
-# GPN
-Official codebase of the Glimpse Prediction Networks project.
+# Glimpse Prediction Networks — self-supervised brain-aligned scene representation.
+Official codebase of the GPN project.
 
 ## Codebase map
 1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
