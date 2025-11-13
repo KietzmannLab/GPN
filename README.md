@@ -34,5 +34,5 @@ CLIP and DeepGaze are not installed in this setup. If desired:
 2. Clone and install https://github.com/matthias-k/DeepGaze
 
 ### Pretrained networks and analysis data
-1. Download the 'logs' folder from [Zenodo](https://doi.org/10.5281/zenodo.17595294) and place it under [train/](train/) — these contain the pretrained GPN/GSN weights and performance metrics. (~ 3GB)
-2. Download 'saved_actvs', 'rdms', and 'datasets' from [Zenodo](https://doi.org/10.5281/zenodo.17595294) and place them at the same level as the figure plotting scripts before executing them — these contain analysis-relevant data from the networks, their rdms, and the 'test-515' glimpse sequences and COCO images datasets, and the SCEGRAM dataset, required in [gpn_analysis.ipynb](gpn_analysis.ipynb) (~ GB)
+1. Download the 'logs' folder from [OSF](https://doi.org/10.17605/OSF.IO/G29PD) and place it under [train/](train/) — these contain the pretrained GPN/GSN weights and performance metrics. (~ 3GB)
+2. Download 'saved_actvs', 'rdms', and 'datasets' from [OSF](https://doi.org/10.17605/OSF.IO/G29PD) and place them at the same level as the figure plotting scripts before executing them — these contain analysis-relevant data from the networks, their rdms, and the 'test-515' glimpse sequences and COCO images datasets, and the SCEGRAM dataset, required in [gpn_analysis.ipynb](gpn_analysis.ipynb) (~ GB)
