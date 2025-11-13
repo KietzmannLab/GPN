@@ -31,7 +31,8 @@ def get_network_model(hyp):
     gazeloc_loss = hyp['optimizer']['losses']['gazeloc_loss']
     provide_loc = hyp['optimizer']['losses']['provide_loc']
 
-    r50v = hyp['dataset']['r50v']
+    bbv = hyp['dataset']['bbv']
+    print(f'\nUsing bbv-{bbv} features')
     dva_dataset = hyp['dataset']['dva_dataset']
 
     trainer = hyp['optimizer']['trainer']
@@ -41,12 +42,51 @@ def get_network_model(hyp):
 
         from .GPN import lstm_gpn
 
-        net = lstm_gpn(timestep_multiplier=timestep_multiplier,glimpse_loss=glimpse_loss,semantic_loss=semantic_loss,scene_loss=scene_loss,gazeloc_loss=gazeloc_loss,n_rnn=n_rnn,regularisation=regularisation,input_dropout=input_dropout,rnn_dropout=rnn_dropout,return_all_actvs=analysis_mode, input_split=input_split, recurrence=recurrence) 
+        net = lstm_gpn(timestep_multiplier=timestep_multiplier,glimpse_loss=glimpse_loss,semantic_loss=semantic_loss,scene_loss=scene_loss,gazeloc_loss=gazeloc_loss,n_rnn=n_rnn,regularisation=regularisation,input_dropout=input_dropout,rnn_dropout=rnn_dropout,return_all_actvs=analysis_mode, input_split=input_split, recurrence=recurrence, input_feats=768 if bbv == 5 else 2048) 
 
-        if timesteps == 6 and input_split == 0 and glimpse_loss == 1:
-            net_name = f'gpn_n_{n_rnn}_tm_{timestep_multiplier}_recurrence_{recurrence}_loc_{provide_loc}_gaze_{gaze_type}_gdva_{dva_dataset}_num_{network_id}'
-        else:
-            net_name = f'gpn_lstm_n_{n_rnn}_tm_{timestep_multiplier}_t_{timesteps}_insplit_{input_split}_recurrence_{recurrence}_loc_{provide_loc}_reg_{regularisation}_indp_{input_dropout}_rnndp_{rnn_dropout}_gaze_{gaze_type}_gcpc_{glimpse_loss}_semc_{semantic_loss}_scc_{scene_loss}_locmse_{gazeloc_loss}_tr_{trainer}_r50v{r50v}_gdva_{dva_dataset}_lr_{lr}_num_{network_id}'
+        net_name = f'gpn_lstm_n_{n_rnn}_tm_{timestep_multiplier}_t_{timesteps}_recurrence_{recurrence}_loc_{provide_loc}_bbv{bbv}_gaze_{gaze_type}_indp_{input_dropout}_rnndp_{rnn_dropout}_gcpc_{glimpse_loss}_semc_{semantic_loss}_scc_{scene_loss}_locmse_{gazeloc_loss}_insplit_{input_split}_reg_{regularisation}_tr_{trainer}_gdva_{dva_dataset}_lr_{lr}_num_{network_id}'
+
+    print(f'\nNetwork name: {net_name}')
+
+    model_parameters = filter(lambda p: p.requires_grad, net.parameters())
+    params = sum([np.prod(p.size()) for p in model_parameters])
+    print(f"\nThe network has {params} trainable parameters\n")
+
+    return net, net_name
+
+def get_network_model_e2e(hyp):
+    # import the req. network
+
+    timestep_multiplier = hyp['network']['timestep_multiplier']
+    timesteps = hyp['network']['timesteps']
+    gaze_type = hyp['network']['gaze_type']
+    network_id = hyp['network']['identifier']
+    n_rnn = hyp['network']['n_rnn']
+    regularisation = hyp['network']['regularisation']
+    input_dropout = hyp['network']['input_dropout']
+    rnn_dropout = hyp['network']['rnn_dropout']
+    analysis_mode = hyp['network']['analysis_mode']
+    input_split = hyp['network']['input_split']
+    recurrence = hyp['network']['recurrence']
+
+    semantic_loss = hyp['optimizer']['losses']['semantic_loss']
+    scene_loss = hyp['optimizer']['losses']['scene_loss']
+    glimpse_loss = hyp['optimizer']['losses']['glimpse_loss']
+    gazeloc_loss = hyp['optimizer']['losses']['gazeloc_loss']
+    provide_loc = hyp['optimizer']['losses']['provide_loc']
+
+    dva_dataset = hyp['dataset']['dva_dataset']
+
+    trainer = hyp['optimizer']['trainer']
+    lr = hyp['optimizer']['lr']
+
+    if hyp['network']['model'] == 'rn18-lstm':
+
+        from .GPN import rn18_lstm_gpn
+
+        net = rn18_lstm_gpn(timestep_multiplier=timestep_multiplier,glimpse_loss=glimpse_loss,semantic_loss=semantic_loss,scene_loss=scene_loss,gazeloc_loss=gazeloc_loss,n_rnn=n_rnn,regularisation=regularisation,input_dropout=input_dropout,rnn_dropout=rnn_dropout,return_all_actvs=analysis_mode, input_split=input_split, recurrence=recurrence) 
+
+        net_name = f'gpn_e2e_rn18_lstm_n_{n_rnn}_tm_{timestep_multiplier}_t_{timesteps}_recurrence_{recurrence}_loc_{provide_loc}_gaze_{gaze_type}_indp_{input_dropout}_rnndp_{rnn_dropout}_reg_{regularisation}_tr_{trainer}_gdva_{dva_dataset}_lr_{lr}_num_{network_id}'
 
     print(f'\nNetwork name: {net_name}')
 

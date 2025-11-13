@@ -15,7 +15,7 @@ def get_Dataset_loaders(hyp,split):
     gaze_extract = hyp['network']['gaze_extract']
     timesteps = hyp['network']['timesteps']
 
-    split_data = CocoGaze(split=split, dataset_path=dataset_path, gaze_type=gaze_type, gaze_extract=gaze_extract, timesteps=timesteps, in_memory= hyp['dataset']['in_memory'], r50v=hyp['dataset']['r50v'], dva_dataset=hyp['dataset']['dva_dataset'])
+    split_data = CocoGaze(split=split, dataset_path=dataset_path, gaze_type=gaze_type, gaze_extract=gaze_extract, timesteps=timesteps, in_memory= hyp['dataset']['in_memory'], bbv=hyp['dataset']['bbv'], dva_dataset=hyp['dataset']['dva_dataset'])
 
     if 'train' in split:
         data_loader = torch.utils.data.DataLoader(split_data, batch_size=hyp['optimizer']['batch_size'], shuffle=True,
@@ -31,20 +31,19 @@ def get_Dataset_loaders(hyp,split):
 class CocoGaze(torch.utils.data.Dataset):
     #Import dataset splitwise
 
-    def __init__(self, split, dataset_path, gaze_type, timesteps, in_memory, r50v,  gaze_extract='-1', dva_dataset='NSD'):
+    def __init__(self, split, dataset_path, gaze_type, timesteps, in_memory, bbv, dva_dataset='NSD'):
 
         self.root_dir = dataset_path
         gaze_map = {'dg3': 0, 'random': 1, 'dg3p': 2, 'dg3s': 3}
         self.gaze_type = gaze_map[gaze_type] # 0 if dg3, 1 if random, 2 if dg3_permuted, 3 if dg3_swap
-        self.gaze_extract = gaze_extract
         self.in_memory = in_memory
         self.split = split
         self.timesteps = timesteps
         self.dva_dataset = dva_dataset
         if self.dva_dataset == 'NSD':
-            self.dataset_str = f'coco_NSD_dg3fix91_r50v{r50v}ap_7fix' if gaze_extract == '-1' else f'coco_NSD_dg3nfix91_r50v{r50v}ap_7fix'
+            self.dataset_str = f'coco_NSD_dg3fix91_bbv{bbv}ap_7fix'
         elif self.dva_dataset == 'AVS':
-            self.dataset_str = f'coco_AVS_dg3fix36_r50v{r50v}ap_7fix' if gaze_extract == '-1' else f'coco_AVS_dg3nfix36_r50v{r50v}ap_7fix'
+            self.dataset_str = f'coco_AVS_dg3fix36_bbv{bbv}ap_7fix'
 
         if split == 'train' or split == 'val' or split == 'test':
 
