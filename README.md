@@ -1,5 +1,5 @@
 # Glimpse Prediction Networks
-Official codebase of the GPN project. Release v1.0. (archived at [OSF](https://doi.org/10.17605/OSF.IO/G29PD))
+Official codebase of the GPN project. Release v1. (archived at [OSF](https://doi.org/10.17605/OSF.IO/G29PD))
 
 ## Codebase map
 1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
