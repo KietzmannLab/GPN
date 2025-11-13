@@ -20,7 +20,7 @@ You can setup the enviroment as:
 conda env create -f environment.yml
 conda activate gpn
 ```
-
+Uncomment lines 5 and 30 when using a GPU and set the required cuda version.
 CLIP and DeepGaze are not installed in this setup. If desired:
 1. pip install "git+https://github.com/openai/CLIP.git"
 2. Clone and install https://github.com/matthias-k/DeepGaze
