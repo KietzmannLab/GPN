@@ -14,7 +14,14 @@ The code has been tested with:
 - Python 3.9.19 + PyTorch 2.3.1 (CPU) on macOS (Apple M1)
 - Python 3.10.12 + PyTorch 2.5.1+cu118 on a Linux HPC cluster
 
-You can setup the enviroment as:
+Clone this repository (or Download it directly):
+
+```bash
+git clone https://github.com/KietzmannLab/GPN.git
+cd GPN
+```
+
+Setup the enviroment as:
 
 ```bash
 conda env create -f environment.yml
