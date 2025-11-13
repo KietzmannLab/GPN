@@ -3,7 +3,7 @@ Official codebase of the GPN project. Release v1. (archived at [OSF](https://doi
 
 ## Codebase map
 1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
-2.The mapping between GPN variant/backbone names and their 
+2. The mapping between GPN variant/backbone names and their identifiers can be found in [paper_plots.ipynb](paper_plots.ipynb)
 3. GPN/GSN training scripts can be found under [train](train/)
 4. Scripts to generate the datasets of glimpse sequences can be found under [gen_datasets](gen_datasets/)
 5. Scripts to extract the RDMs for alternative networks, and to find the best-ROI-aligned layers, can be found under [alternative_models](alternative_models/)
