@@ -1,7 +1,9 @@
 # Glimpse Prediction Networks
 Official codebase of the GPN project. Release v1. (archived at [OSF](https://doi.org/10.17605/OSF.IO/G29PD))
 
-This repository is geared towards making all the code and analyses from the paper possible. If you are instead interested in quickly accessing the best GPN models (SimCLR backbone), check out the [HuggingFace](https://doi.org/10.57967/hf/6992) repository instead.
+This repository is geared towards making all the code and analyses from the paper possible. 
+
+If instead you are interested in quickly accessing the best GPN models (SimCLR backbone), check out the [HuggingFace](https://doi.org/10.57967/hf/6992) repository instead.
 
 ## Codebase map
 1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
