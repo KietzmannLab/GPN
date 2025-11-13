@@ -12,7 +12,7 @@ Official codebase of the GPN project.
 ### Environment setup
 The code has been tested with:
 - Python 3.9.19 + PyTorch 2.3.1 (CPU) on macOS (Apple M1)
-- Python 3.10.12 + PyTorch 2.5.1+cu124 on a Linux HPC cluster
+- Python 3.10.12 + PyTorch 2.5.1+cu118 on a Linux HPC cluster
 
 You can setup the enviroment as:
 
@@ -26,5 +26,5 @@ CLIP and DeepGaze are not installed in this setup. If desired:
 2. Clone and install https://github.com/matthias-k/DeepGaze
 
 ### Pretrained networks and analysis data
-1. Download the 'logs' folder from [OSF](https://doi.org/10.17605/OSF.IO/Y2FWT) and place it under [train/](train/) — these contain the pretrained GPN/GSN weights and performance metrics.
-2. Download 'saved_actvs', 'rdms', and 'datasets' from [OSF](https://doi.org/10.17605/OSF.IO/Y2FWT) and place them at the same level as the figure plotting scripts before executing them — these contain analysis-relevant measures for the networks, their rdms, and the 'test-515' glimpse sequences and COCO images datasets, and the SCEGRAM dataset, required in [gpn_analysis.ipynb](gpn_analysis.ipynb)
+1. Download the 'logs' folder from [Zenodo](https://doi.org/10.5281/zenodo.17595294) and place it under [train/](train/) — these contain the pretrained GPN/GSN weights and performance metrics.
+2. Download 'saved_actvs', 'rdms', and 'datasets' from [Zenodo](https://doi.org/10.5281/zenodo.17595294) and place them at the same level as the figure plotting scripts before executing them — these contain analysis-relevant measures for the networks, their rdms, and the 'test-515' glimpse sequences and COCO images datasets, and the SCEGRAM dataset, required in [gpn_analysis.ipynb](gpn_analysis.ipynb)
