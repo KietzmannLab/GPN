@@ -3,7 +3,7 @@ Official codebase of the GPN project. Release v1. (archived at [OSF](https://doi
 
 This repository is geared towards making all the code and analyses from the paper ([https://arxiv.org/abs/2511.12715](https://arxiv.org/abs/2511.12715)) possible. 
 
-If instead you are interested in quickly accessing the best NSD-aligned GPN models (SimCLR backbone), check out the [HuggingFace](https://doi.org/10.57967/hf/6992) repository instead.
+If instead you are interested in quickly accessing the best NSD-aligned GPN models (SimCLR backbone), check out the [HuggingFace](https://doi.org/10.57967/hf/6992) repository.
 
 ## Codebase map
 1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
