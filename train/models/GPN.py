@@ -99,27 +99,27 @@ class lstm_gpn(nn.Module):
         if self.glimpse_loss:
             activations['glimpse_hidden'] = F.relu(self.glimpse_proj_hidden_norm(self.glimpse_proj_hidden(activations['lstm_out'])))
             activations['glimpse_output'] = self.glimpse_proj_norm(self.glimpse_proj(activations['glimpse_hidden']))
-            outputs[0] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][1::2]
-            activations['glimpse_hidden'] = activations['glimpse_hidden'] if self.input_split == 0 else activations['glimpse_hidden'][:,::2]
-            activations['glimpse_output'] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,::2]
+            outputs[0] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,1::2]
+            activations['glimpse_hidden'] = activations['glimpse_hidden'] if self.input_split == 0 else activations['glimpse_hidden'][:,1::2]
+            activations['glimpse_output'] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,1::2]
         if self.semantic_loss:
             activations['semantic_hidden'] = F.relu(self.semantic_proj_hidden_norm(self.semantic_proj_hidden(activations['lstm_out'])))
             activations['semantic_output'] = self.semantic_proj_norm(self.semantic_proj(activations['semantic_hidden']))
-            outputs[1] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][1::2]
-            activations['semantic_hidden'] = activations['semantic_hidden'] if self.input_split == 0 else activations['semantic_hidden'][:,::2]
-            activations['semantic_output'] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,::2]
+            outputs[1] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,1::2]
+            activations['semantic_hidden'] = activations['semantic_hidden'] if self.input_split == 0 else activations['semantic_hidden'][:,1::2]
+            activations['semantic_output'] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,1::2]
         if self.scene_loss:
             activations['scene_hidden'] = F.relu(self.scene_proj_hidden_norm(self.scene_proj_hidden(activations['lstm_out'])))
             activations['scene_output'] = self.scene_proj(activations['scene_hidden'])
-            outputs[2] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][1::2]
-            activations['scene_hidden'] = activations['scene_hidden'] if self.input_split == 0 else activations['scene_hidden'][:,::2]
-            activations['scene_output'] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,::2]
+            outputs[2] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,1::2]
+            activations['scene_hidden'] = activations['scene_hidden'] if self.input_split == 0 else activations['scene_hidden'][:,1::2]
+            activations['scene_output'] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,1::2]
         if self.gazeloc_loss:
             activations['gazeloc_hidden'] = F.relu(self.gazeloc_proj_hidden_norm(self.gazeloc_proj_hidden(activations['lstm_out'])))
             activations['gazeloc_output'] = self.gazeloc_proj(activations['gazeloc_hidden'])
-            outputs[3] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][1::2]
-            activations['gazeloc_hidden'] = activations['gazeloc_hidden'] if self.input_split == 0 else activations['gazeloc_hidden'][:,::2]
-            activations['gazeloc_output'] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,::2]
+            outputs[3] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,1::2]
+            activations['gazeloc_hidden'] = activations['gazeloc_hidden'] if self.input_split == 0 else activations['gazeloc_hidden'][:,1::2]
+            activations['gazeloc_output'] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,1::2]
 
         activations['lstm_out'] = activations['lstm_out'] if self.input_split == 0 else activations['lstm_out'][:,1::2] # keep only the saccade stream - that's what prediction is conditioned on.
 
@@ -238,27 +238,27 @@ class rn18_lstm_gpn(nn.Module):
         if self.glimpse_loss:
             activations['glimpse_hidden'] = F.relu(self.glimpse_proj_hidden_norm(self.glimpse_proj_hidden(activations['lstm_out'])))
             activations['glimpse_output'] = self.glimpse_proj_norm(self.glimpse_proj(activations['glimpse_hidden']))
-            outputs[0] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][1::2]
-            activations['glimpse_hidden'] = activations['glimpse_hidden'] if self.input_split == 0 else activations['glimpse_hidden'][:,::2]
-            activations['glimpse_output'] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,::2]
+            outputs[0] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,1::2]
+            activations['glimpse_hidden'] = activations['glimpse_hidden'] if self.input_split == 0 else activations['glimpse_hidden'][:,1::2]
+            activations['glimpse_output'] = activations['glimpse_output'] if self.input_split == 0 else activations['glimpse_output'][:,1::2]
         if self.semantic_loss:
             activations['semantic_hidden'] = F.relu(self.semantic_proj_hidden_norm(self.semantic_proj_hidden(activations['lstm_out'])))
             activations['semantic_output'] = self.semantic_proj_norm(self.semantic_proj(activations['semantic_hidden']))
-            outputs[1] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][1::2]
-            activations['semantic_hidden'] = activations['semantic_hidden'] if self.input_split == 0 else activations['semantic_hidden'][:,::2]
-            activations['semantic_output'] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,::2]
+            outputs[1] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,1::2]
+            activations['semantic_hidden'] = activations['semantic_hidden'] if self.input_split == 0 else activations['semantic_hidden'][:,1::2]
+            activations['semantic_output'] = activations['semantic_output'] if self.input_split == 0 else activations['semantic_output'][:,1::2]
         if self.scene_loss:
             activations['scene_hidden'] = F.relu(self.scene_proj_hidden_norm(self.scene_proj_hidden(activations['lstm_out'])))
             activations['scene_output'] = self.scene_proj_norm(self.scene_proj(activations['scene_hidden']))
-            outputs[2] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][1::2]
-            activations['scene_hidden'] = activations['scene_hidden'] if self.input_split == 0 else activations['scene_hidden'][:,::2]
-            activations['scene_output'] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,::2]
+            outputs[2] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,1::2]
+            activations['scene_hidden'] = activations['scene_hidden'] if self.input_split == 0 else activations['scene_hidden'][:,1::2]
+            activations['scene_output'] = activations['scene_output'] if self.input_split == 0 else activations['scene_output'][:,1::2]
         if self.gazeloc_loss:
             activations['gazeloc_hidden'] = F.relu(self.gazeloc_proj_hidden_norm(self.gazeloc_proj_hidden(activations['lstm_out'])))
             activations['gazeloc_output'] = self.gazeloc_proj(activations['gazeloc_hidden'])
-            outputs[3] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][1::2]
-            activations['gazeloc_hidden'] = activations['gazeloc_hidden'] if self.input_split == 0 else activations['gazeloc_hidden'][:,::2]
-            activations['gazeloc_output'] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,::2]
+            outputs[3] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,1::2]
+            activations['gazeloc_hidden'] = activations['gazeloc_hidden'] if self.input_split == 0 else activations['gazeloc_hidden'][:,1::2]
+            activations['gazeloc_output'] = activations['gazeloc_output'] if self.input_split == 0 else activations['gazeloc_output'][:,1::2]
 
         activations['lstm_out'] = activations['lstm_out'] if self.input_split == 0 else activations['lstm_out'][:,1::2] # keep only the saccade stream - that's what prediction is conditioned on.
 

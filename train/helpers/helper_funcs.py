@@ -12,10 +12,9 @@ def get_Dataset_loaders(hyp,split):
 
     dataset_path = hyp['dataset']['dataset_path']
     gaze_type = hyp['network']['gaze_type']
-    gaze_extract = hyp['network']['gaze_extract']
     timesteps = hyp['network']['timesteps']
 
-    split_data = CocoGaze(split=split, dataset_path=dataset_path, gaze_type=gaze_type, gaze_extract=gaze_extract, timesteps=timesteps, in_memory= hyp['dataset']['in_memory'], bbv=hyp['dataset']['bbv'], dva_dataset=hyp['dataset']['dva_dataset'])
+    split_data = CocoGaze(split=split, dataset_path=dataset_path, gaze_type=gaze_type, timesteps=timesteps, in_memory= hyp['dataset']['in_memory'], bbv=hyp['dataset']['bbv'], dva_dataset=hyp['dataset']['dva_dataset'])
 
     if 'train' in split:
         data_loader = torch.utils.data.DataLoader(split_data, batch_size=hyp['optimizer']['batch_size'], shuffle=True,
@@ -34,16 +33,18 @@ class CocoGaze(torch.utils.data.Dataset):
     def __init__(self, split, dataset_path, gaze_type, timesteps, in_memory, bbv, dva_dataset='NSD'):
 
         self.root_dir = dataset_path
-        gaze_map = {'dg3': 0, 'random': 1, 'dg3p': 2, 'dg3s': 3}
+        gaze_map = {'dg3': 0, 'random': 1, 'dg3p': 2, 'dg3r': 3}
         self.gaze_type = gaze_map[gaze_type] # 0 if dg3, 1 if random, 2 if dg3_permuted, 3 if dg3_swap
         self.in_memory = in_memory
         self.split = split
         self.timesteps = timesteps
         self.dva_dataset = dva_dataset
         if self.dva_dataset == 'NSD':
-            self.dataset_str = f'coco_NSD_dg3fix91_bbv{bbv}ap_7fix'
+            self.dataset_str = f'coco_NSD_dg3fix91_r50v{bbv}ap_7fix'
         elif self.dva_dataset == 'AVS':
-            self.dataset_str = f'coco_AVS_dg3fix36_bbv{bbv}ap_7fix'
+            self.dataset_str = f'coco_AVS_dg3fix36_r50v{bbv}ap_7fix'
+        self.coco_dataset_str = dataset_path + '../optimized_datasets/ms_coco_embeddings.h5'
+        f_coco = h5py.File(self.coco_dataset_str, 'r')
 
         if split == 'train' or split == 'val' or split == 'test':
 
@@ -57,6 +58,7 @@ class CocoGaze(torch.utils.data.Dataset):
                     self.next_fix_coords = torch.from_numpy(f[split]['next_fix_coords'][:,:,:timesteps,self.gaze_type,:][()]).float()
                     self.semantic_embed = torch.from_numpy(f[split]['mpnet_embeddings'][()]).float()
                     self.scene_embed = torch.from_numpy(f[split]['full_image_actvs'][()]).float()
+                self.scene_multihot = torch.from_numpy(f_coco[split]['img_multi_hot'][()])
             else:
                 with h5py.File(path_here, "r") as f:
                     self.len = f[split]['dg3_fix_actvs'][:,:,:timesteps+1,self.gaze_type,:].shape
@@ -78,6 +80,7 @@ class CocoGaze(torch.utils.data.Dataset):
                 next_fix_coords_shape = f['train']['next_fix_coords'][:,:,:timesteps,self.gaze_type,:].shape
                 semantic_embed_shape = f['train']['mpnet_embeddings'].shape
                 scene_embed_shape = f['train']['full_image_actvs'].shape
+            scene_multihot_shape = f_coco['train']['img_multi_hot'].shape
 
             if in_memory == 1:
                 self.actvs = torch.zeros((actvs_shape[0] + n_imgs_tt - len(idxs_notuse), *actvs_shape[1:]))
@@ -86,6 +89,7 @@ class CocoGaze(torch.utils.data.Dataset):
                 self.next_fix_coords = torch.zeros((next_fix_coords_shape[0] + n_imgs_tt - len(idxs_notuse), *next_fix_coords_shape[1:]))
                 self.semantic_embed = torch.zeros((semantic_embed_shape[0] + n_imgs_tt - len(idxs_notuse), *semantic_embed_shape[1:]))
                 self.scene_embed = torch.zeros((scene_embed_shape[0] + n_imgs_tt - len(idxs_notuse), *scene_embed_shape[1:]))
+                self.scene_multihot = torch.zeros((semantic_embed_shape[0] + n_imgs_tt - len(idxs_notuse), *scene_multihot_shape[1:]))
                 
                 path_here = dataset_path + f'{self.dataset_str}_train.h5'
                 with h5py.File(path_here, "r") as f:
@@ -94,6 +98,7 @@ class CocoGaze(torch.utils.data.Dataset):
                     self.next_fix_coords[:n_imgs_tr] = torch.from_numpy(f['train']['next_fix_coords'][:,:,:timesteps,self.gaze_type,:][()]).float()
                     self.semantic_embed[:n_imgs_tr] = torch.from_numpy(f['train']['mpnet_embeddings'][()]).float()
                     self.scene_embed[:n_imgs_tr] = torch.from_numpy(f['train']['full_image_actvs'][()]).float()
+                self.scene_multihot[:n_imgs_tr] = torch.from_numpy(f_coco['train']['img_multi_hot'][()])
 
                 path_here = dataset_path + f'{self.dataset_str}_test.h5'
                 idxs_use = [x for i, x in enumerate([i for i in range(n_imgs_tt)]) if i not in list(idxs_notuse)]
@@ -103,10 +108,10 @@ class CocoGaze(torch.utils.data.Dataset):
                     self.next_fix_coords[n_imgs_tr:] = torch.from_numpy(f['test']['next_fix_coords'][idxs_use,:,:timesteps,self.gaze_type,:][()]).float()
                     self.semantic_embed[n_imgs_tr:] = torch.from_numpy(f['test']['mpnet_embeddings'][idxs_use,:][()]).float()
                     self.scene_embed[n_imgs_tr:] = torch.from_numpy(f['test']['full_image_actvs'][idxs_use,:][()]).float()
+                self.scene_multihot[n_imgs_tr:] = torch.from_numpy(f_coco['test']['img_multi_hot'][idxs_use,:][()])
             else:
                 self.len = [actvs_shape[0],actvs_shape[1]]
                 self.len[0] = self.len[0] + n_imgs_tt - len(idxs_notuse)
-
 
         elif len(split.split('_')) == 2 and split.split('_')[0] == 'test':
 
@@ -122,6 +127,7 @@ class CocoGaze(torch.utils.data.Dataset):
                     self.next_fix_coords = torch.from_numpy(f['test']['next_fix_coords'][idxs_use,:,:timesteps,self.gaze_type,:][()]).float()
                     self.semantic_embed = torch.from_numpy(f['test']['mpnet_embeddings'][idxs_use,:][()]).float()
                     self.scene_embed = torch.from_numpy(f['test']['full_image_actvs'][idxs_use,:][()]).float()
+                self.scene_multihot = torch.from_numpy(f_coco['test']['img_multi_hot'][idxs_use,:][()])
             else:
                 with h5py.File(path_here, "r") as f:
                     actvs_shape = f['test']['dg3_fix_actvs'][idxs_use,:,:timesteps+1,self.gaze_type,:].shape
@@ -143,6 +149,7 @@ class CocoGaze(torch.utils.data.Dataset):
             fix_coords = torch.cat((torch.Tensor([[0, 0]]), fix_coords), dim=0) # adding center coordinates to tensor
             semantic_embed = self.semantic_embed[img_n,:]
             scene_embed = self.scene_embed[img_n,:]
+            scene_multihot = self.scene_multihot[img_n,:]
 
         else:
 
@@ -156,6 +163,7 @@ class CocoGaze(torch.utils.data.Dataset):
                     fix_coords = torch.cat((torch.Tensor([[0, 0]]), fix_coords), dim=0) # adding center coordinates to tensor
                     semantic_embed = torch.from_numpy(f[self.split]['mpnet_embeddings'][img_n,:][()]).float()
                     scene_embed = torch.from_numpy(f[self.split]['full_image_actvs'][img_n,:][()]).float()
+                scene_multihot = torch.from_numpy(h5py.File(self.coco_dataset_str, 'r')[self.split]['img_multi_hot'][img_n,:][()])
 
             elif len(self.split.split('_')) == 2 and self.split.split('_')[0] == 'train':
 
@@ -179,6 +187,7 @@ class CocoGaze(torch.utils.data.Dataset):
                         fix_coords = torch.cat((torch.Tensor([[0, 0]]), fix_coords), dim=0) # adding center coordinates to tensor
                         semantic_embed = torch.from_numpy(f['train']['mpnet_embeddings'][img_n,:][()]).float()
                         scene_embed = torch.from_numpy(f['train']['full_image_actvs'][img_n,:][()]).float()
+                    scene_multihot = torch.from_numpy(h5py.File(self.coco_dataset_str, 'r')['train']['img_multi_hot'][img_n,:][()])
                 else:
                     path_here = self.root_dir + f'{self.dataset_str}_test.h5'
                     idxs_use = [x for i, x in enumerate([i for i in range(n_imgs_tt)]) if i not in list(idxs_notuse)]
@@ -189,6 +198,7 @@ class CocoGaze(torch.utils.data.Dataset):
                         fix_coords = torch.cat((torch.Tensor([[0, 0]]), fix_coords), dim=0) # adding center coordinates to tensor
                         semantic_embed = torch.from_numpy(f['test']['mpnet_embeddings'][idxs_use[img_n-actvs_shape[0]],:][()]).float()
                         scene_embed = torch.from_numpy(f['test']['full_image_actvs'][idxs_use[img_n-actvs_shape[0]],:][()]).float()
+                    scene_multihot = torch.from_numpy(h5py.File(self.coco_dataset_str, 'r')['test']['img_multi_hot'][idxs_use[img_n-actvs_shape[0]],:][()])
 
             elif len(self.split.split('_')) == 2 and self.split.split('_')[0] == 'test':
 
@@ -203,11 +213,108 @@ class CocoGaze(torch.utils.data.Dataset):
                     fix_coords = torch.cat((torch.Tensor([[0, 0]]), fix_coords), dim=0) # adding center coordinates to tensor
                     semantic_embed = torch.from_numpy(f['test']['mpnet_embeddings'][idxs_use[img_n],:][()]).float()
                     scene_embed = torch.from_numpy(f['test']['full_image_actvs'][idxs_use[img_n],:][()]).float()
+                scene_multihot = torch.from_numpy(h5py.File(self.coco_dataset_str, 'r')['test']['img_multi_hot'][idxs_use[img_n],:][()])
 
         img_n = torch.Tensor([img_n])
         trace_n = torch.Tensor([trace_n])
 
-        return actvs, next_fix_rel_coords, fix_coords, semantic_embed, scene_embed, img_n, trace_n
+        return actvs, next_fix_rel_coords, fix_coords, semantic_embed, scene_embed, scene_multihot, img_n, trace_n
+    
+def get_Dataset_loaders_e2e(hyp,split,preprocess,img_scale=224):
+    gaze_type = hyp['network']['gaze_type']
+    timesteps = hyp['network']['timesteps']
+
+    split_data = CocoGaze_e2e(split=split, gaze_type=gaze_type, timesteps=timesteps, in_memory=hyp['dataset']['in_memory'],dva_dataset=hyp['dataset']['dva_dataset'],preprocess=preprocess,img_scale=img_scale)
+
+    if 'train' in split:
+        data_loader = torch.utils.data.DataLoader(split_data, batch_size=hyp['optimizer']['batch_size'], shuffle=True, num_workers=hyp['optimizer']['dataloader']['num_workers_train'], prefetch_factor=hyp['optimizer']['dataloader']['prefetch_factor'])
+    elif 'val' in split or 'test' in split:
+        data_loader = torch.utils.data.DataLoader(split_data, batch_size=hyp['optimizer']['batch_size'], shuffle=False, num_workers=hyp['optimizer']['dataloader']['num_workers_val_test'], prefetch_factor=hyp['optimizer']['dataloader']['prefetch_factor'])
+        
+    return data_loader
+    
+class CocoGaze_e2e(torch.utils.data.Dataset):
+    #Import dataset splitwise
+
+    def __init__(self, split, gaze_type, timesteps, in_memory, dva_dataset='NSD', preprocess=None,img_scale=224): # only in_memory, dg3 agze_type, implemented here!
+
+        self.gaze_type = 'dg3'
+        self.in_memory = in_memory
+        self.split = split
+        self.timesteps = timesteps
+        self.dva_dataset = dva_dataset
+        if self.dva_dataset == 'NSD':
+            self.glimpse_size = 91
+        elif self.dva_dataset == 'AVS':
+            self.glimpse_size = 36
+        self.preprocess = preprocess
+        self.img_scale = img_scale
+
+        f_dg3_fixations = h5py.File('/share/klab/datasets/optimized_datasets/ms_coco_embeddings_deepgaze_16_fixations.h5', 'r')
+        f_coco = h5py.File('/share/klab/datasets/optimized_datasets/ms_coco_embeddings_deepgaze_16_fixations.h5', 'r')
+
+        if split == 'train' or split == 'val' or split == 'test':
+
+            self.coco_imgs = torch.from_numpy(f_coco[split]['data'][()])
+            self.dg3_fixs = torch.from_numpy(f_dg3_fixations[split]['densenet_deepgaze_fixations'][()])
+        
+        elif len(split.split('_')) == 2 and split.split('_')[0] == 'train':
+
+            test_case = int(split.split('_')[1])
+
+            n_imgs_tt = f_coco['test']['data'].shape[0]
+            idxs_special = np.load(f'/share/klab/datasets/NSD_special_imgs_pythonicDatasetIndices/pythonic_conds{test_case}.npy')
+
+            if split.split('_')[0] == 'train':
+
+                self.coco_imgs = torch.from_numpy(np.concatenate((f_coco['train']['data'][()], np.array([f_coco['test']['data'][i] for i in range(n_imgs_tt) if i not in list(idxs_special)])), axis=0))
+                self.dg3_fixs = torch.from_numpy(np.concatenate((f_dg3_fixations['train']['densenet_deepgaze_fixations'][()], np.array([f_dg3_fixations['test']['densenet_deepgaze_fixations'][i] for i in range(n_imgs_tt) if i not in list(idxs_special)])), axis=0))
+
+            elif split.split('_')[0] == 'test':
+
+                self.coco_imgs = torch.from_numpy(np.array([f_coco['test']['data'][i] for i in list(idxs_special)]))
+                self.dg3_fixs = torch.from_numpy(np.array([f_dg3_fixations['test']['densenet_deepgaze_fixations'][i] for i in list(idxs_special)]))
+
+    def __len__(self):
+        return (self.dg3_fixs.shape[0]*self.dg3_fixs.shape[1]) # each image * gaze trace is considered a sample
+    
+    def __getitem__(self, idx): # accepts ids for img/trace and returns for glimpse sequences to the Dataloader
+
+        trace_n = idx//self.dg3_fixs.shape[0]
+        img_n = idx%self.dg3_fixs.shape[0]
+
+        glimpse_ext = self.glimpse_size
+
+        img = self.coco_imgs[img_n,:,:,:]
+        im_h = torch.zeros((int(img.shape[0]+glimpse_ext),int(img.shape[1]+glimpse_ext),3),dtype=img.dtype)
+        im_h[int(glimpse_ext/2):int(glimpse_ext/2)+img.shape[0],int(glimpse_ext/2):int(glimpse_ext/2)+img.shape[1],:] = img
+        img = im_h
+        
+        dg3_fixs = self.dg3_fixs[img_n,trace_n,:,:]
+    
+        glimpse_seq = torch.zeros((self.timesteps+1, 3, self.img_scale, self.img_scale))
+        next_fix_rel_coords = torch.zeros((self.timesteps, 2))
+
+        for gli_idx in range(self.timesteps+1):
+            
+            x_ext_low = int(dg3_fixs[gli_idx,0])
+            x_ext_high = int(dg3_fixs[gli_idx,0]+glimpse_ext)
+            y_ext_low = int(dg3_fixs[gli_idx,1])
+            y_ext_high = int(dg3_fixs[gli_idx,1]+glimpse_ext)
+
+            glimpse = img[y_ext_low:y_ext_high,x_ext_low:x_ext_high,:]
+            glimpse = glimpse.permute(2,0,1)
+            if self.preprocess is not None:
+                glimpse = self.preprocess(glimpse)
+            glimpse_seq[gli_idx,:,:,:] = glimpse
+
+            if gli_idx < self.timesteps:
+                next_fix_rel_coords[gli_idx,:] = dg3_fixs[gli_idx+1,:] - dg3_fixs[gli_idx,:]
+
+        img_n = torch.Tensor([img_n])
+        trace_n = torch.Tensor([trace_n])
+
+        return glimpse_seq, next_fix_rel_coords, img_n, trace_n
     
 def create_cpc_matrix(N, m, mask=True):
     # mask==True creates a mask matrix; if False creates a matrix that can be used directly for loss
