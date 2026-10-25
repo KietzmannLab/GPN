@@ -1,0 +1,9 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+datasets/
+rdms/
+saved_actvs/
+train/logs/
+figures/

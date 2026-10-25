@@ -86,14 +86,23 @@ elif rn50_v == 6: # SimCLR
         transforms.Resize(224, antialias=True),
         transforms.ConvertImageDtype(torch.float),
     ])
+elif rn50_v in range(7, 14):
+    # Additional paper backbones; keep the original IDs 0-6 path unchanged.
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from train.models.backbones import feature_dim, load_extended_backbone
+    net, preprocess, feature_layer, _ = load_extended_backbone(rn50_v)
+    actvs_dim = feature_dim(rn50_v)
+
 net.to(device)
 if rn50_v != 5:
     activation = {} # remember to empty the list after each forward pass
     def get_activation(name):
         def hook(model, input, output):
-            activation[name] = output.detach()
+            activation[name] = (output[:, 0, :] if rn50_v == 8 else output).detach()
         return hook
-    net.avgpool.register_forward_hook(get_activation('avgpool'))
+    (feature_layer if rn50_v in range(7, 14) else net.avgpool).register_forward_hook(get_activation('avgpool'))
 net.eval() # important!! so it uses the trained batchnorm stats
 
 print('Network is loaded. Preparing h5...\n')

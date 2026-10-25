@@ -1,4 +1,4 @@
-name: gpn
+name: gpn-science
 channels:
   - conda-forge
   - pytorch
@@ -7,34 +7,36 @@ dependencies:
   - python=3.10
 
   # Core numerics / sci
-  - numpy
-  - scipy
-  - pandas
-  - scikit-learn
-  - h5py
-  - pytables
+  - numpy=2.2.6
+  - scipy=1.15.2
+  - pandas=2.3.3
+  - scikit-learn=1.7.2
+  - h5py=3.13.0
+  - pytables=3.10.1
 
   # Plotting / stats
-  - matplotlib
-  - seaborn
-  - statsmodels
-  - cycler
+  - matplotlib=3.10.8
+  - seaborn=0.13.2
+  - statsmodels=0.14.6
+  - cycler=0.12.1
 
   # Images / CV
-  - pillow
-  - opencv
+  - pillow=12.0.0
+  - opencv=4.11.0
 
   # PyTorch (CPU/MPS on macOS)
-  - pytorch
-  - torchvision
+  - pytorch=2.7.1
+  - torchvision=0.24.0
   # - pytorch-cuda=12.4 # uncomment this line for GPU support (on cluster)
 
-  # Jupyter kernel
-  - ipykernel
+  # Notebook interface and kernel
+  - notebook=7.6.2
+  - ipykernel=7.2.0
 
   # pip for extra stuff
-  - pip
+  - pip=26.0.1
+  - setuptools=80.9.0
   - pip:
-      - timm
-      - transformers
-      - pysaliency
+      - timm==1.0.24
+      - transformers==5.1.0
+      - pysaliency==0.2.22

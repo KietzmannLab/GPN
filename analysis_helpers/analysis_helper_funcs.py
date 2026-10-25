@@ -112,6 +112,16 @@ def get_net_params(net_abbrv):
         dpout_rnn_value = 0.1
         n_rnn_value = 512
         l_rnn_value = 1
+    # Additional backbones used in published Figs. S6/S11. Existing names above
+    # retain exactly their original hyperparameters.
+    extra = re.fullmatch(r'GPN-(B|S|R|RS)-(DVD|EffNet|ViT|RN101|ConvNext|Swin|MaxViT|cornet)', net_abbrv)
+    if extra:
+        variant, backbone = extra.groups()
+        bbv_value = {'DVD': 4, 'EffNet': 7, 'ViT': 8, 'RN101': 9,
+                     'ConvNext': 10, 'Swin': 11, 'MaxViT': 12, 'cornet': 13}[backbone]
+        dpout_in_value = 0.25 if ((backbone in ('EffNet', 'RN101') and variant == 'R')
+                                 or (backbone == 'ViT' and variant in ('R', 'RS'))) else 0.1
+        dpout_rnn_value = 0.1
     return r_value, s_value, bbv_value, n_rnn_value, l_rnn_value, dpout_in_value, dpout_rnn_value, gaze_type_value, dva_dataset
 
 ### Package the required hyperparameters for the model
@@ -627,6 +637,16 @@ def extract_activations_metrics_e2e(dataloader, net, hyp):
 
 def get_RN50_embeddings(images, bbv=1):
 
+    if bbv in range(7, 14):
+        from train.models.backbones import load_extended_backbone, forward_features
+        model, preprocess, layer, cls_token = load_extended_backbone(bbv)
+        device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
+        model.to(device).eval()
+        inputs = preprocess(torch.from_numpy(images).permute(0, 3, 1, 2)).to(device)
+        with torch.no_grad():
+            embeddings = forward_features(model, layer, inputs, cls_token)
+        return embeddings.detach().cpu().numpy().squeeze()
+
     # Load model
     preprocess = transforms.Compose([
         transforms.Resize(224, antialias=True), # resize to 224 as expected by IMAGENET1K_V1/2
@@ -647,6 +667,8 @@ def get_RN50_embeddings(images, bbv=1):
         model = resnet50()
         model.fc = torch.nn.Linear(2048, 565) # DVD-B has 565-dim output (ecoset)
         model_path = 'dvd-b-565.pth'
+        if not os.path.exists(model_path):
+            model_path = 'analysis_helpers/dvd-b-565.pth'
         state_dict = torch.load(model_path, map_location='cpu')['state_dict']
         state_dict = {k.replace('module._orig_mod.', ''): v for k, v in state_dict.items()}  # remove 'module._orig_mod.' prefix
         model.load_state_dict(state_dict)
