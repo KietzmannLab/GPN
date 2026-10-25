@@ -20,6 +20,8 @@ The base archive supplies three checkpoints, SimCLR test embeddings, test-scene 
 
 Summary plotting reads stored RDMs and the compact behavior cache; it does not need pretrained backbone packages or network access. The single-model notebook loads cached activations when available and computes them from the chosen checkpoint/test embeddings when absent. The compact cache also supplies the small saved probes for the default GPN-R-SimCLR model. The eight core-activation ZIPs are optional but preserve the exact version11 activations for direct inspection. The old `saved_actvs.part_*` archive is not needed. Other optional model probes, including SCEGRAM image extraction, require their source images and backbone weights. They are labeled in the notebook.
 
+Together, the base dataset and the two Science Advances test-embedding groups cover test-515 inference for all 11 published backbones. They do not contain the full training and validation embeddings needed to retrain every checkpoint.
+
 ## Additional backbone IDs
 
 The existing training and dataset-generation interfaces accept these additional `--bbv` (training) / `--r50v` (generation) values. The `r50v<ID>` dataset filename convention is retained for all backbones.
