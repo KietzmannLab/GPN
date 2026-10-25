@@ -31,7 +31,7 @@ jupyter notebook paper_plots.ipynb
 
 Both notebooks include saved default outputs that can be viewed on GitHub without setup. Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
 
-To inspect one network, open [gpn_analysis.ipynb](gpn_analysis.ipynb), choose its name in the first code cell, and Run All. The default preview uses `GPN-RS-SimCLR`. To run a model absent from the original archive, also extract all `science-paper-models-*.zip` and `science-paper-test-embeddings-*.zip` files:
+To inspect one network, open [gpn_analysis.ipynb](gpn_analysis.ipynb), choose its name in the first code cell, and Run All. The default preview uses `GPN-R-SimCLR`. To run a model absent from the original archive, also extract all `science-paper-models-*.zip` and `science-paper-test-embeddings-*.zip` files:
 
 ```bash
 for archive in science-paper-models-*.zip science-paper-test-embeddings-*.zip; do unzip -oq "$archive"; done
