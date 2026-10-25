@@ -41,7 +41,6 @@ import torch.nn.functional as F
 from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
 from scipy.ndimage import zoom
-PYTORCH_ENABLE_MPS_FALLBACK=1
 
 ### Network name abbrv
 
@@ -428,17 +427,19 @@ def compute_cossim(outputs,actvs,semantic_embed=None,cpc_mask=None,hyp=None):
     for idx in range(outputs[dim_h].shape[1]):
         idxs_h = outputs[dim_h].shape[1]*np.arange(outputs[dim_h].shape[0]) + idx
         cs_sm_mt_h = cosine_similarity_matrix[:,idxs_h]
-        cs_sm_mt_h_ranks = cs_sm_mt_h.detach().numpy().argsort(axis=0).argsort(axis=0)
+        cs_sm_mt_h_ranks = cs_sm_mt_h.detach().cpu().numpy().argsort(axis=0).argsort(axis=0)
         cpc_ms_h = cpc_mask[:,idxs_h]
         A_filter_map_h = A_filter_map[:,idxs_h]
-        cos_sim_target[idx] += cs_sm_mt_h[cpc_ms_h==1].mean().detach().numpy()
-        rank_target[idx] += cs_sm_mt_h_ranks[cpc_ms_h==1].mean()
+        rank_mask = cpc_ms_h.detach().cpu().numpy()
+        rank_filter = A_filter_map_h.detach().cpu().numpy()
+        cos_sim_target[idx] += cs_sm_mt_h[cpc_ms_h==1].mean().detach().cpu().numpy()
+        rank_target[idx] += cs_sm_mt_h_ranks[rank_mask==1].mean()
         if hyp['optimizer']['losses']['glimpse_loss']:
-            cos_sim_other_fix[idx] += cs_sm_mt_h[(cpc_ms_h==2)&A_filter_map_h].mean().detach().numpy()
-            cos_sim_current_fix[idx] += cosine_similarity_current[idxs_h].sum(dim=1).mean().detach().numpy()
-            rank_other_fix[idx] += cs_sm_mt_h_ranks[(cpc_ms_h==2)&A_filter_map_h].mean()
-        cos_sim_other_sc[idx] += cs_sm_mt_h[cpc_ms_h==3].mean().detach().numpy()
-        rank_other_sc[idx] += cs_sm_mt_h_ranks[cpc_ms_h==3].mean()
+            cos_sim_other_fix[idx] += cs_sm_mt_h[(cpc_ms_h==2)&A_filter_map_h].mean().detach().cpu().numpy()
+            cos_sim_current_fix[idx] += cosine_similarity_current[idxs_h].sum(dim=1).mean().detach().cpu().numpy()
+            rank_other_fix[idx] += cs_sm_mt_h_ranks[(rank_mask==2)&rank_filter].mean()
+        cos_sim_other_sc[idx] += cs_sm_mt_h[cpc_ms_h==3].mean().detach().cpu().numpy()
+        rank_other_sc[idx] += cs_sm_mt_h_ranks[rank_mask==3].mean()
         if hyp['optimizer']['losses']['glimpse_loss']:
             cos_sim_diff[idx] += cos_sim_target[idx] - (cos_sim_other_fix[idx]+cos_sim_other_sc[idx])/2
         elif hyp['optimizer']['losses']['semantic_loss']:
@@ -508,12 +509,12 @@ def extract_activations_metrics(dataloader, net, hyp):
                 if key not in lstm_reps:
                     lstm_reps[key] = []
                 lstm_reps[key].append(activations[key].detach().cpu().numpy())
-        scene_reps.append(scene_embed.detach().numpy())
-        scene_multihot_reps.append(scene_multihot.detach().numpy())
-        fix_coords_all.append(fix_coords.detach().numpy())
-        llm_reps.append(semantic_embed.detach().numpy())
-        actv_reps.append(activations['rn50_glimpse'].detach().numpy())
-        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().numpy())
+        scene_reps.append(scene_embed.detach().cpu().numpy())
+        scene_multihot_reps.append(scene_multihot.detach().cpu().numpy())
+        fix_coords_all.append(fix_coords.detach().cpu().numpy())
+        llm_reps.append(semantic_embed.detach().cpu().numpy())
+        actv_reps.append(activations['rn50_glimpse'].detach().cpu().numpy())
+        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().cpu().numpy())
         img_n_all.append(img_n.numpy())
         trace_n_all.append(trace_n.numpy())
         idx_output_h = 0 if glimpse_loss else 1 if semantic_loss else 2
@@ -605,9 +606,9 @@ def extract_activations_metrics_e2e(dataloader, net, hyp):
                 if key not in lstm_reps:
                     lstm_reps[key] = []
                 lstm_reps[key].append(activations[key].detach().cpu().numpy())
-        fix_coords_all.append(fix_coords.detach().numpy())
-        actv_reps.append(activations['rn50_glimpse'].detach().numpy())
-        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().numpy())
+        fix_coords_all.append(fix_coords.detach().cpu().numpy())
+        actv_reps.append(activations['rn50_glimpse'].detach().cpu().numpy())
+        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().cpu().numpy())
         img_n_all.append(img_n.numpy())
         trace_n_all.append(trace_n.numpy())
         output_reps.append(outputs[0].detach().cpu().numpy())

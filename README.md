@@ -33,6 +33,8 @@ Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and sum
 
 To inspect one network, open [gpn_analysis.ipynb](gpn_analysis.ipynb), choose its name in the first code cell, and Run All. The default is `GPN-R-SimCLR`. To run a model absent from the original archive, also extract `science-paper-models.zip` and `science-paper-test-embeddings.zip`. The notebook loads cached results when available and identifies optional analyses that need recomputation.
 
+The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the network on its GPU. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script retains its CUDA default.
+
 The data bundles, model names, and optional training commands are described in [Science paper data and models](SCIENCE_PAPER.md). Differences between the published text and the available analysis code/data are recorded in [Paper audit](PAPER_AUDIT.md).
 
 ## Repository map
