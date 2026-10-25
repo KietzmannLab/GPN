@@ -1,6 +1,6 @@
 # Glimpse Prediction Networks
 
-Code and analyses for [Thorat et al., *Science Advances* (2026)](https://doi.org/10.1126/sciadv.aee1955). Pretrained GPNs are also available on [Hugging Face](https://huggingface.co/novelmartis/GPN).
+Code and analyses for [Thorat et al., *Science Advances* (2026)](https://doi.org/10.1126/sciadv.aee1955). The four SimCLR GPNs and two GSN controls are also available on [Hugging Face](https://huggingface.co/novelmartis/GPN) for quick inference. S/RS use saccade inputs; B/R and both GSNs use zero saccade tensors, as in training.
 
 ## Quick start
 
