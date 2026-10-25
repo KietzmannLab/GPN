@@ -46,6 +46,30 @@ class BackboneTests(unittest.TestCase):
                     7: 1280, 8: 768, 9: 2048, 10: 768, 11: 768, 12: 512, 13: 512}
         self.assertEqual({key: feature_dim(key) for key in expected}, expected)
 
+    def test_dinov2_image_embeddings_use_cpu_when_mps_is_available(self):
+        from analysis_helpers.analysis_helper_funcs import get_RN50_embeddings
+
+        class DummyDino(torch.nn.Module):
+            chosen_device = None
+
+            def to(self, device):
+                self.chosen_device = str(device)
+                return self
+
+            def forward(self, images):
+                self.saw_cpu_input = images.device.type == 'cpu'
+                return torch.ones(images.shape[0], 768)
+
+        model = DummyDino()
+        images = np.zeros((2, 91, 91, 3), dtype=np.uint8)
+        with patch('torch.hub.load', return_value=model), \
+             patch('torch.cuda.is_available', return_value=False), \
+             patch('torch.backends.mps.is_available', return_value=True):
+            features = get_RN50_embeddings(images, bbv=5)
+        self.assertEqual(model.chosen_device, 'cpu')
+        self.assertTrue(model.saw_cpu_input)
+        self.assertEqual(features.shape, (2, 768))
+
     def test_all_paper_hyperparameters_match_checkpoint_identifiers(self):
         for label, identifier in MODEL_IDS.items():
             with self.subTest(model=label), contextlib.redirect_stdout(io.StringIO()):
