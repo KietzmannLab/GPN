@@ -8,11 +8,11 @@ Download the base data from the [GPN data record (all versions)](https://doi.org
 
 | Archive | Contents | Needed for |
 | --- | --- | --- |
-| `science-paper-rdms.zip` | RDMs for all 46 published GPN/GSN checkpoints, neural RDMs, layer-selection metadata | `paper_plots.ipynb` and cached neural analyses in `gpn_analysis.ipynb` |
-| `science-paper-models.zip` | Best checkpoints for 32 additional GPNs; DVD-B backbone weights | Opening and evaluating the additional models |
-| `science-paper-test-embeddings.zip` | Test-515 embeddings for eight additional backbones | Recomputing activations for the additional models |
+| `science-paper-rdms-*.zip` (12 files) | RDMs for all 46 published GPN/GSN checkpoints, neural RDMs, layer-selection metadata | `paper_plots.ipynb` and cached neural analyses in `gpn_analysis.ipynb` |
+| `science-paper-models-*.zip` (13 files) | Best checkpoints for 32 additional GPNs; DVD-B backbone weights | Opening and evaluating the additional models |
+| `science-paper-test-embeddings-*.zip` (7 files) | Test-515 embeddings for eight additional backbones | Recomputing activations for the additional models |
 
-The base archive supplies the remaining checkpoints and embeddings. Extract ZIP contents directly into the repository root; do not nest them under another folder. Extract `science-paper-rdms.zip` last so its RDMs take precedence. Confirm the archive SHA-256 values against the repository [DATA_SHA256SUMS](DATA_SHA256SUMS) file. Published model names map to checkpoint identifiers in [analysis_helpers/science_models.json](analysis_helpers/science_models.json).
+The base archive supplies the remaining checkpoints and embeddings. Each Science Advances ZIP extracts directly into the repository root; no joining is needed. Extract the Science Advances RDM ZIPs after the base RDM archive so their RDMs take precedence. Download every file in a group before using that group. Confirm their SHA-256 values against the repository [DATA_SHA256SUMS](DATA_SHA256SUMS) file. Published model names map to checkpoint identifiers in [analysis_helpers/science_models.json](analysis_helpers/science_models.json).
 
 Summary plotting reads stored RDMs and does not need pretrained backbone packages or network access. The single-model notebook loads cached activations when available and uses the chosen checkpoint/test embeddings when they are absent. Some optional model probes, including SCEGRAM image extraction, require their source images and backbone weights. They are labeled in the notebook.
 

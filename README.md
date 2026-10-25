@@ -11,7 +11,7 @@ conda env create -f environment.yml
 conda activate gpn-science
 ```
 
-Before running the notebook, download the base data and `science-paper-rdms.zip` from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). Extract them **into the repository root**. The base record provides `datasets.zip`, `logs.zip`, and split `rdms.part_*` and `saved_actvs.part_*` archives. For example, after downloading these files into this directory:
+Before running the notebook, download the base data and all `science-paper-rdms-*.zip` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). Extract them **into the repository root**. The base record provides `datasets.zip`, `logs.zip`, and split `rdms.part_*` and `saved_actvs.part_*` archives. The Science Advances ZIPs extract individually. After downloading the files into this directory:
 
 ```bash
 cat rdms.part_* > rdms.zip
@@ -20,7 +20,7 @@ unzip -q datasets.zip
 unzip -q logs.zip -d train
 unzip -q rdms.zip
 unzip -q saved_actvs.zip
-unzip -oq science-paper-rdms.zip
+for archive in science-paper-rdms-*.zip; do unzip -oq "$archive"; done
 ```
 
 The resulting folders include `rdms/`, `saved_actvs/`, `datasets/`, and `train/logs/`. Open the summary notebook:
@@ -31,7 +31,13 @@ jupyter notebook paper_plots.ipynb
 
 Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
 
-To inspect one network, open [gpn_analysis.ipynb](gpn_analysis.ipynb), choose its name in the first code cell, and Run All. The default is `GPN-R-SimCLR`. To run a model absent from the original archive, also extract `science-paper-models.zip` and `science-paper-test-embeddings.zip`. The notebook loads cached results when available and identifies optional analyses that need recomputation.
+To inspect one network, open [gpn_analysis.ipynb](gpn_analysis.ipynb), choose its name in the first code cell, and Run All. The default is `GPN-R-SimCLR`. To run a model absent from the original archive, also extract all `science-paper-models-*.zip` and `science-paper-test-embeddings-*.zip` files:
+
+```bash
+for archive in science-paper-models-*.zip science-paper-test-embeddings-*.zip; do unzip -oq "$archive"; done
+```
+
+The notebook loads cached results when available and identifies optional analyses that need recomputation.
 
 The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the network on its GPU. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script retains its CUDA default.
 
