@@ -11,18 +11,16 @@ conda env create -f environment.yml
 conda activate gpn-science
 ```
 
-Before running the notebook, download `datasets.zip`, `logs.zip`, and all `rdms.part_*` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384), plus `science-paper-analysis-cache.zip` and all `science-paper-rdms-*.zip` files. Extract them **into the repository root**. The Science Advances ZIPs extract individually. After downloading the files into this directory:
+For the summary notebook, download all `rdms.part_*` files, `science-paper-analysis-cache.zip`, and all `science-paper-rdms-*.zip` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). Extract them **into the repository root**. The Science Advances ZIPs extract individually:
 
 ```bash
 cat rdms.part_* > rdms.zip
-unzip -q datasets.zip
-unzip -q logs.zip -d train
 unzip -q rdms.zip
 unzip -oq science-paper-analysis-cache.zip
 for archive in science-paper-rdms-*.zip; do unzip -oq "$archive"; done
 ```
 
-The resulting folders include `rdms/`, `saved_actvs/`, `datasets/`, and `train/logs/`. Open the summary notebook:
+Open the summary notebook:
 
 ```bash
 jupyter notebook paper_plots.ipynb
@@ -30,10 +28,18 @@ jupyter notebook paper_plots.ipynb
 
 Both notebooks include saved default outputs that can be viewed on GitHub without setup. Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
 
-To inspect the default `GPN-R-SimCLR` with its exact saved version11 activations, download and extract `science-paper-core-activations-GPN-R-SimCLR.zip`, then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All. To select any of the 46 published checkpoints, also extract these archives:
+To inspect the default `GPN-R-SimCLR` with its exact saved version11 activations, also download `datasets.zip`, `logs.zip`, and `science-paper-core-activations-GPN-R-SimCLR.zip` and extract them into the repository root:
 
 ```bash
-for archive in science-paper-core-models-*.zip science-paper-core-test-embeddings-*.zip science-paper-models-*.zip science-paper-test-embeddings-*.zip; do unzip -oq "$archive"; done
+unzip -q datasets.zip
+unzip -q logs.zip -d train
+unzip -oq science-paper-core-activations-GPN-R-SimCLR.zip
+```
+
+Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All. To select any of the 46 published checkpoints, also extract these archives:
+
+```bash
+for archive in science-paper-core-models-*.zip science-paper-models-*.zip science-paper-test-embeddings-*.zip; do unzip -oq "$archive"; done
 ```
 
 For the exact saved activations of another SimCLR or ILSVRC B/S/R/RS model, extract its `science-paper-core-activations-GPN-<variant>-<backbone>.zip` before running the notebook. The notebook generates activations from the checkpoint and test embeddings when that cache is absent. Optional analyses that need additional source images or backbone packages are labeled in the notebook.

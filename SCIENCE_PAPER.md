@@ -4,23 +4,34 @@ Run the across-model analyses in [paper_plots.ipynb](paper_plots.ipynb). Choose 
 
 ## Data layout
 
-Download the base `rdms/`, `datasets/`, and `train/logs/` data from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384) and extract them into the repository root. The Science Advances version supplies these additions:
+All paths below are relative to the repository root. Get the archives from the [GPN Zenodo record (all versions)](https://doi.org/10.5281/zenodo.20667384). The original `rdms.part_*` files must be joined into `rdms.zip`; each `science-paper-*.zip` extracts independently. Extract the Science Advances RDM ZIPs after the original `rdms.zip` so the published analysis files take precedence.
 
-| Archive | Contents | Needed for |
+| Archive | Files after extraction | Purpose |
 | --- | --- | --- |
-| `science-paper-rdms-*.zip` (12 files) | RDMs for all 46 published GPN/GSN checkpoints, neural RDMs, layer-selection metadata | `paper_plots.ipynb` and cached neural analyses in `gpn_analysis.ipynb` |
-| `science-paper-analysis-cache.zip` | Exact behavior arrays for the 12 default summary models, six position-decoding results, best-layer lookup, and the small optional caches for GPN-R-SimCLR | Full default runs of both notebooks without the large original activation archive |
-| `science-paper-core-models-*.zip` (5 files) | The 12 published checkpoints missing from the base and additional-model archives, plus training-loss logs for all 46 models | Loading every published model |
-| `science-paper-core-test-embeddings-*.zip` (2 files) | ILSVRC and DINOv2-B test-515 embeddings | Generating activations for those backbones |
-| `science-paper-models-*.zip` (13 files) | Best checkpoints for 32 GPNs using the additional backbones; DVD-B backbone weights | Opening and evaluating those models |
-| `science-paper-test-embeddings-*.zip` (7 files) | Test-515 embeddings for eight additional backbones | Generating activations for those models |
-| `science-paper-core-activations-GPN-*.zip` (8 files) | Exact full test-515 activations for B/S/R/RS with SimCLR and ILSVRC | Immediate single-model analysis of those eight networks without recomputation |
+| `datasets.zip` | `datasets/coco-test-515.h5`, `datasets/coco_dg3_fixations_test_515.h5`, `datasets/coco_NSD_dg3fix91_r50v{1,5,6}ap_7fix_test_515.h5`, `datasets/SCEGRAM/` | Test scenes, fixations, and ILSVRC/DINOv2-B/SimCLR glimpse embeddings; SCEGRAM images and coordinates. |
+| `logs.zip` (extract under `train/`) | `train/logs/net_params/<id>/<id>.pth`, `train/logs/perf_logs/` | Best checkpoints for the 12 core GPNs and two GSNs, plus original controls and training histories. |
+| `rdms.part_*` (join as `rdms.zip`) | `rdms/` | Original comparison-network and other RDMs used by the notebooks. |
+| `science-paper-rdms-*.zip` (12) | `rdms/gpn_rdms_<id>.pkl` for all 46 published models, `rdms/streams_all_neural_rdms_correlation_special515.pkl`, `analysis_helpers/best_layers_streams_allrois.pkl` | Model-to-brain comparisons and layer selection. |
+| `science-paper-analysis-cache.zip` (1) | `saved_actvs/science_paper_behavior_cache.pkl`, `saved_actvs/best_network_layers.pkl`, small probe caches | Default behavior plots, position-decoding results, and GPN-R-SimCLR probes without the old large activation archive. |
+| `science-paper-core-models-*.zip` (5) | 12 core GPN best checkpoints under `train/logs/net_params/`, and 46 loss histories under `train/logs/perf_logs/` | Standalone core checkpoint copies and complete training-history plots. The 12 best checkpoints are also in `logs.zip`. |
+| `science-paper-models-*.zip` (13) | 32 additional GPN checkpoints under `train/logs/net_params/`, plus `dvd-b-565.pth` | Published GPNs using the eight additional backbones. |
+| `science-paper-core-test-embeddings-*.zip` (2) | `datasets/coco_NSD_dg3fix91_r50v{1,5}ap_7fix_test_515.h5` | Separately packaged ILSVRC and DINOv2-B test embeddings; optional when `datasets.zip` is extracted. |
+| `science-paper-test-embeddings-*.zip` (7) | `datasets/coco_NSD_dg3fix91_r50v<ID>ap_7fix_test_515.h5` for IDs 4 and 7–13 | Test embeddings for the eight additional backbones. |
+| `science-paper-core-activations-GPN-<variant>-<backbone>.zip` (8) | `saved_actvs/<id>_repr.pkl` | Exact saved activations for B/S/R/RS with SimCLR or ILSVRC; optional when recomputing from a checkpoint and test embeddings. |
 
-The base archive supplies three checkpoints, SimCLR test embeddings, test-scene images, and alternative-network RDMs. Each Science Advances ZIP extracts directly into the repository root; no joining is needed. Extract the Science Advances RDM ZIPs after the base RDM archive so their RDMs take precedence. Download every file in a group before using that group. Confirm their SHA-256 values against the repository [DATA_SHA256SUMS](DATA_SHA256SUMS) file. Published model names map to checkpoint identifiers in [analysis_helpers/science_models.json](analysis_helpers/science_models.json).
+The `{1,5,6}` dataset filename notation in this table abbreviates three separate files. The full backbone IDs are below. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). The same ID names its RDM and optional activation cache. `DATA_SHA256SUMS` checks the 48 Science Advances ZIPs; each also contains a `MANIFEST-*.json`. The original `saved_actvs.part_*` archive and `GPN_v1.zip` are not required by either notebook.
 
-Summary plotting reads stored RDMs and the compact behavior cache; it does not need pretrained backbone packages or network access. The single-model notebook loads cached activations when available and computes them from the chosen checkpoint/test embeddings when absent. The compact cache also supplies the small saved probes for the default GPN-R-SimCLR model. The eight core-activation ZIPs are optional but preserve the exact version11 activations for direct inspection. The old `saved_actvs.part_*` archive is not needed. Other optional model probes, including SCEGRAM image extraction, require their source images and backbone weights. They are labeled in the notebook.
+### Minimum files by task
 
-Together, the base dataset and the two Science Advances test-embedding groups cover test-515 inference for all 11 published backbones. They do not contain the full training and validation embeddings needed to retrain every checkpoint.
+| Task | Download |
+| --- | --- |
+| View the saved notebook outputs on GitHub | Nothing. |
+| Rerun `paper_plots.ipynb` | Original `rdms.part_*`, `science-paper-rdms-*.zip`, and `science-paper-analysis-cache.zip`. No model checkpoint, test dataset, or backbone download is needed. |
+| Run default `gpn_analysis.ipynb` with exact GPN-R-SimCLR activations | The summary files above, `datasets.zip`, `logs.zip`, and `science-paper-core-activations-GPN-R-SimCLR.zip`. |
+| Run the single-model notebook across all 46 published models | The summary files, `datasets.zip`, `logs.zip`, all `science-paper-core-models-*.zip`, `science-paper-models-*.zip`, and `science-paper-test-embeddings-*.zip`. The eight activation ZIPs are optional shortcuts. |
+| Train all 46 models from initialization | Requires the full training and validation embedding datasets, which these analysis archives do not supply. |
+
+For your own glimpse images, [Hugging Face](https://huggingface.co/novelmartis/GPN) offers the four SimCLR GPNs and two matched GSNs without the Zenodo analysis archives. The GitHub notebooks use the Zenodo checkpoints and data. The selected GPN/GSN model needs its backbone's test-515 embedding file only when the notebook computes activations rather than loading a saved activation cache. Optional probes that extract embeddings from new images may also need the selected backbone's weights or package; the SCEGRAM source images are in `datasets.zip`.
 
 ## Additional backbone IDs
 
