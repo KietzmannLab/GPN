@@ -11,13 +11,16 @@ conda env create -f environment.yml
 conda activate gpn-science
 ```
 
-For the summary notebook, download all `rdms.part_*` files, `science-paper-analysis-cache.zip`, and all `science-paper-rdms-*.zip` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). Extract them **into the repository root**. The Science Advances ZIPs extract individually:
+For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, and all eight `science-paper-core-activations-GPN-*.zip` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for B/S/R/RS with SimCLR and ILSVRC in the single-model notebook. Extract them **into the repository root**. Only the original RDM parts need joining; each Science Advances ZIP extracts independently:
 
 ```bash
-cat rdms.part_* > rdms.zip
-unzip -q rdms.zip
+cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip
+unzip -oq datasets.zip
+unzip -oq logs.zip -d train
+unzip -oq rdms.zip
 unzip -oq science-paper-analysis-cache.zip
 for archive in science-paper-rdms-*.zip; do unzip -oq "$archive"; done
+for archive in science-paper-core-activations-GPN-*.zip; do unzip -oq "$archive"; done
 ```
 
 Open the summary notebook:
@@ -28,21 +31,7 @@ jupyter notebook paper_plots.ipynb
 
 Both notebooks include saved default outputs that can be viewed on GitHub without setup. Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
 
-To inspect the default `GPN-R-SimCLR` with its exact saved version11 activations, also download `datasets.zip`, `logs.zip`, and `science-paper-core-activations-GPN-R-SimCLR.zip` and extract them into the repository root:
-
-```bash
-unzip -q datasets.zip
-unzip -q logs.zip -d train
-unzip -oq science-paper-core-activations-GPN-R-SimCLR.zip
-```
-
-Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All. To select any of the 46 published checkpoints, also extract these archives:
-
-```bash
-for archive in science-paper-core-models-*.zip science-paper-models-*.zip science-paper-test-embeddings-*.zip; do unzip -oq "$archive"; done
-```
-
-For the exact saved activations of another SimCLR or ILSVRC B/S/R/RS model, extract its `science-paper-core-activations-GPN-<variant>-<backbone>.zip` before running the notebook. The notebook generates activations from the checkpoint and test embeddings when that cache is absent. Optional analyses that need additional source images or backbone packages are labeled in the notebook.
+Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All for its default `GPN-R-SimCLR`. Change its model-selection cell to inspect another network. For the 32 GPNs with other backbones, download only the checkpoint and test-embedding ZIPs listed for that model in [DATA_ASSETS.json](DATA_ASSETS.json); extract each into the repository root. Download `science-paper-additional-logs.zip` if you want those models' training histories. The notebook computes activations when an exact saved cache is absent. See [Science paper data and models](SCIENCE_PAPER.md) for the full download map and optional backbone requirements.
 
 The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the GPN on its GPU. The DINOv2 image-embedding helper uses CPU, as in version11. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script retains its CUDA default.
 

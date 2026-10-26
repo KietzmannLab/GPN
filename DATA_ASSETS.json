@@ -1,0 +1,911 @@
+{
+  "description": "Archive and extracted-path lookup for the 46 published GPN/GSN models.",
+  "models": {
+    "GPN-B-ConvNext": {
+      "backbone_id": 10,
+      "checkpoint": {
+        "archive": "science-paper-models-06-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-07-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-05-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v10ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-DVD": {
+      "backbone_id": 4,
+      "checkpoint": {
+        "archive": "science-paper-models-01-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-03-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-01-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v4ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-Dinov2_B": {
+      "backbone_id": 5,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-11-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v5ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-EffNet": {
+      "backbone_id": 7,
+      "checkpoint": {
+        "archive": "science-paper-models-05-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-06-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-02-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v7ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-ILSVRC": {
+      "backbone_id": 1,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-01-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-B-ILSVRC.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-MaxViT": {
+      "backbone_id": 12,
+      "checkpoint": {
+        "archive": "science-paper-models-09-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-09-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v12ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-RN101": {
+      "backbone_id": 9,
+      "checkpoint": {
+        "archive": "science-paper-models-02-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-04-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-04-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v9ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-02-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-B-SimCLR.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-Swin": {
+      "backbone_id": 11,
+      "checkpoint": {
+        "archive": "science-paper-models-10-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-10-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v11ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-ViT": {
+      "backbone_id": 8,
+      "checkpoint": {
+        "archive": "science-paper-models-07-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-08-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-03-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v8ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-B-cornet": {
+      "backbone_id": 13,
+      "checkpoint": {
+        "archive": "science-paper-models-03-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-05-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-07-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v13ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-ConvNext": {
+      "backbone_id": 10,
+      "checkpoint": {
+        "archive": "science-paper-models-07-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-07-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-05-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v10ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-DVD": {
+      "backbone_id": 4,
+      "checkpoint": {
+        "archive": "science-paper-models-01-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-03-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-01-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v4ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-Dinov2_B": {
+      "backbone_id": 5,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-11-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v5ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-EffNet": {
+      "backbone_id": 7,
+      "checkpoint": {
+        "archive": "science-paper-models-05-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv7_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv7_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-06-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv7_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-02-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v7ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv7_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv7_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-ILSVRC": {
+      "backbone_id": 1,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-01-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-R-ILSVRC.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-MaxViT": {
+      "backbone_id": 12,
+      "checkpoint": {
+        "archive": "science-paper-models-09-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-09-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v12ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-RN101": {
+      "backbone_id": 9,
+      "checkpoint": {
+        "archive": "science-paper-models-03-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv9_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv9_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-04-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv9_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-04-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v9ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv9_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv9_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-02-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-R-SimCLR.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-Swin": {
+      "backbone_id": 11,
+      "checkpoint": {
+        "archive": "science-paper-models-11-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-10-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v11ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-ViT": {
+      "backbone_id": 8,
+      "checkpoint": {
+        "archive": "science-paper-models-08-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-08-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-03-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v8ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-R-cornet": {
+      "backbone_id": 13,
+      "checkpoint": {
+        "archive": "science-paper-models-04-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-05-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-07-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v13ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-ConvNext": {
+      "backbone_id": 10,
+      "checkpoint": {
+        "archive": "science-paper-models-07-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-07-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-05-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v10ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-DVD": {
+      "backbone_id": 4,
+      "checkpoint": {
+        "archive": "science-paper-models-02-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-03-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-01-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v4ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-Dinov2_B": {
+      "backbone_id": 5,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-11-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v5ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-EffNet": {
+      "backbone_id": 7,
+      "checkpoint": {
+        "archive": "science-paper-models-06-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-06-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-02-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v7ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-ILSVRC": {
+      "backbone_id": 1,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-01-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-RS-ILSVRC.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-MaxViT": {
+      "backbone_id": 12,
+      "checkpoint": {
+        "archive": "science-paper-models-10-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-09-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v12ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-RN101": {
+      "backbone_id": 9,
+      "checkpoint": {
+        "archive": "science-paper-models-03-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-04-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-04-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v9ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-02-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-RS-SimCLR.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-Swin": {
+      "backbone_id": 11,
+      "checkpoint": {
+        "archive": "science-paper-models-11-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-10-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v11ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-ViT": {
+      "backbone_id": 8,
+      "checkpoint": {
+        "archive": "science-paper-models-08-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-08-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-03-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v8ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv8_gaze_dg3_indp_0.25_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-RS-cornet": {
+      "backbone_id": 13,
+      "checkpoint": {
+        "archive": "science-paper-models-04-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-05-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-07-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v13ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-ConvNext": {
+      "backbone_id": 10,
+      "checkpoint": {
+        "archive": "science-paper-models-06-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-07-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-05-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v10ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv10_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-DVD": {
+      "backbone_id": 4,
+      "checkpoint": {
+        "archive": "science-paper-models-01-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-03-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-01-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v4ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv4_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-Dinov2_B": {
+      "backbone_id": 5,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-11-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v5ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv5_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-EffNet": {
+      "backbone_id": 7,
+      "checkpoint": {
+        "archive": "science-paper-models-05-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-06-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-02-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v7ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv7_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-ILSVRC": {
+      "backbone_id": 1,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-01-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-S-ILSVRC.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-MaxViT": {
+      "backbone_id": 12,
+      "checkpoint": {
+        "archive": "science-paper-models-09-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-09-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v12ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv12_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-RN101": {
+      "backbone_id": 9,
+      "checkpoint": {
+        "archive": "science-paper-models-02-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-04-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-04-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v9ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv9_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-02-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "saved_activations": {
+        "archive": "science-paper-core-activations-GPN-S-SimCLR.zip",
+        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-Swin": {
+      "backbone_id": 11,
+      "checkpoint": {
+        "archive": "science-paper-models-10-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-10-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-06-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v11ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv11_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-ViT": {
+      "backbone_id": 8,
+      "checkpoint": {
+        "archive": "science-paper-models-08-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-08-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-03-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v8ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv8_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "GPN-S-cornet": {
+      "backbone_id": 13,
+      "checkpoint": {
+        "archive": "science-paper-models-04-of-13.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-05-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "science-paper-test-embeddings-07-of-07.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v13ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "science-paper-additional-logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv13_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "cGSN-R-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.25_gcpc_0_semc_0_scc_1_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.25_gcpc_0_semc_0_scc_1_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-12-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.25_gcpc_0_semc_0_scc_1_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.25_gcpc_0_semc_0_scc_1_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.25_gcpc_0_semc_0_scc_1_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    },
+    "sGSN-R-SimCLR": {
+      "backbone_id": 6,
+      "checkpoint": {
+        "archive": "logs.zip",
+        "path": "train/logs/net_params/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.5_gcpc_0_semc_1_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.5_gcpc_0_semc_1_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pth"
+      },
+      "rdm": {
+        "archive": "science-paper-rdms-12-of-12.zip",
+        "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.5_gcpc_0_semc_1_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
+      },
+      "test_embeddings": {
+        "archive": "datasets.zip",
+        "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
+      },
+      "training_log": {
+        "archive": "logs.zip",
+        "path": "train/logs/perf_logs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.5_gcpc_0_semc_1_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1/loss_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv6_gaze_dg3_indp_0.5_rnndp_0.5_gcpc_0_semc_1_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.npz"
+      }
+    }
+  }
+}
