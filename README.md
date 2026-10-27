@@ -38,7 +38,7 @@ Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All for its default `
 
 The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the GPN on its GPU. The DINOv2 image-embedding helper uses CPU. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script uses CUDA by default.
 
-The data bundles, model names, and optional training commands are described in [Science paper data and models](SCIENCE_PAPER.md). Differences between the published text and the available analysis code/data are recorded in [Paper audit](PAPER_AUDIT.md).
+The data bundles, model names, and optional training commands are described in [Science paper data and models](SCIENCE_PAPER.md). [Paper audit](PAPER_AUDIT.md) records exact numerical and method-description differences between the published text and available analysis code/data. These do not change the paper's main directional conclusions.
 
 ## Repository map
 
