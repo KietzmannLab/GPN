@@ -11,7 +11,9 @@ conda env create -f environment.yml
 conda activate gpn-science
 ```
 
-For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, `science-paper-core-activations-GPN-R-SimCLR.zip`, and `science-paper-core-activations-GPN-RS-ILSVRC.zip` from the [GPN data record](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for those two models in the single-model notebook. Extract them **into the repository root**. Join the `rdms.part_*` files; each Science Advances ZIP extracts independently:
+For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, `science-paper-core-activations-GPN-R-SimCLR.zip`, and `science-paper-core-activations-GPN-RS-ILSVRC.zip` from the [GPN data record](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for those two models in the single-model notebook.
+
+Save these files directly in the cloned `GPN/` folder, open a macOS/Linux terminal there, and run the commands below. The download is about 24.2 GB; joining the RDM parts creates another 14.4 GB file, and extraction needs further free space. Join only the `rdms.part_*` files; each Science Advances ZIP extracts independently:
 
 ```bash
 cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip

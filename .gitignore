@@ -7,3 +7,10 @@ rdms/
 saved_actvs/
 train/logs/
 figures/
+/datasets.zip
+/logs.zip
+/rdms.part_*
+/rdms.zip
+/science-paper-*.zip
+/MANIFEST-science-paper-*.json
+/dvd-b-565.pth

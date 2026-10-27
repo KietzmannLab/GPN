@@ -4,7 +4,11 @@ Run the across-model analyses in [paper_plots.ipynb](paper_plots.ipynb). Choose 
 
 ## Data layout
 
-All paths below are relative to the repository root. Get the archives from the [GPN Zenodo record](https://doi.org/10.5281/zenodo.20667384). Join `rdms.part_aa`–`rdms.part_ad` into `rdms.zip`; each `science-paper-*.zip` extracts independently. Extract the Science Advances RDM ZIPs after `rdms.zip` so the published analysis files take precedence. Four overlapping model RDMs have different contents in the published analysis set.
+All paths below are relative to the repository root. Save the archives from the [GPN Zenodo record](https://doi.org/10.5281/zenodo.20667384) in that folder. Join the four RDM parts in order with the command below; each `science-paper-*.zip` extracts independently. Then follow the extraction commands in the [README quick start](README.md#quick-start), which extract the Science Advances RDM ZIPs after `rdms.zip` so the published analysis files take precedence. Four overlapping model RDMs have different contents in the published analysis set.
+
+```bash
+cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip
+```
 
 | Archive | Files after extraction | Purpose |
 | --- | --- | --- |
@@ -18,7 +22,7 @@ All paths below are relative to the repository root. Get the archives from the [
 | `science-paper-additional-logs.zip` (1) | `train/logs/perf_logs/<id>/loss_<id>.npz` for 32 additional GPNs | Training histories for the additional-backbone models. |
 | `science-paper-core-activations-GPN-R-SimCLR.zip` and `science-paper-core-activations-GPN-RS-ILSVRC.zip` (2) | `saved_actvs/<id>_repr.pkl` | Exact saved activations for two selected models. |
 
-The `{1,5,6}` dataset filename notation abbreviates three separate files. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). For exact archive names and extracted paths for each of the 46 models, use [DATA_ASSETS.json](DATA_ASSETS.json). [DATA_SHA256SUMS](DATA_SHA256SUMS) checks the 36 Science Advances ZIPs; each ZIP contains a `MANIFEST-*.json`.
+The `{1,5,6}` dataset filename notation abbreviates three separate files. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). For exact archive names and extracted paths for each of the 46 models, use [DATA_ASSETS.json](DATA_ASSETS.json). [DATA_SHA256SUMS](DATA_SHA256SUMS) lists checksums for the 36 Science Advances ZIPs; each archive group includes a `MANIFEST-*.json` in its final ZIP.
 
 ### Minimum files by task
 
@@ -31,16 +35,17 @@ The `{1,5,6}` dataset filename notation abbreviates three separate files. Every 
 | Inspect all 46 published models | Default setup plus all 13 `science-paper-models-*.zip` and all seven `science-paper-test-embeddings-*.zip`. Add `science-paper-additional-logs.zip` for their training histories. |
 | Train all 46 models from initialization | Requires the full training and validation embedding datasets, which these analysis archives do not supply. |
 
-For a chosen model, look up its exact archives with:
+For an additional-backbone GPN, this prints the two extra ZIPs to download from Zenodo and the commands to extract them from the repository root. Replace the example name with any additional-backbone GPN in `DATA_ASSETS.json`:
 
 ```bash
 python - <<'PY'
 import json
-model = 'GPN-RS-SimCLR'  # any key under "models" in DATA_ASSETS.json
+model = 'GPN-RS-ViT'
 assets = json.load(open('DATA_ASSETS.json'))['models'][model]
-for kind, item in assets.items():
-    if isinstance(item, dict):
-        print(f'{kind}: {item["archive"]} -> {item["path"]}')
+for kind in ('checkpoint', 'test_embeddings'):
+    archive = assets[kind]['archive']
+    print(f'{kind}: download {archive}')
+    print(f'unzip -oq {archive}')
 PY
 ```
 
