@@ -18,7 +18,8 @@ parser.add_argument('--rnn_dropout', type=float, default=0.1)
 parser.add_argument('--input_split', type=int, default=0) # 0 if provide image and saccade at the same time, 1 if provide image and saccade separately
 parser.add_argument('--glimpse_loss', type=int, default=1) # 0 if not required, 1 if yes - CPC, 2 if yes - CPC but with no equal split of in-sequences and out-sequence pairs
 parser.add_argument('--semantic_loss', type=int, default=0) # 0 if not required, 1 if yes - contrastive
-parser.add_argument('--scene_loss', type=int, default=0) # 0 if not required, 1 if yes - BCE with logits (multihot object labels)
+parser.add_argument('--scene_loss', type=int, default=0) # 0 if not required; 1 enables scene prediction
+parser.add_argument('--paper_cgsn_bce', action='store_true', help='use the published cluster BCE objective for cGSN (scene_loss=1)')
 parser.add_argument('--gazeloc_loss', type=int, default=0) # 0 if not required, 1 if yes - MSE
 
 parser.add_argument('--trainer', type=str, default='train_515') # train/train_515
@@ -35,6 +36,8 @@ parser.add_argument('--save_nets', type=int, default=1) # save networks
 parser.add_argument('--bbv', type=int, default=6) # 0 is RN50-init, 1/2 is RN50-IN trained, 3 is RN50-Barlowtwins, 4 is RN50-DVD-B, 5 is DINOv2B, 6 is RN50-simclr
 
 args = parser.parse_args()
+if args.paper_cgsn_bce and args.scene_loss != 1:
+    parser.error('--paper_cgsn_bce requires --scene_loss 1')
 
 import torch
 import numpy as np
@@ -127,6 +130,8 @@ if __name__ == '__main__':
     # create the network and initialize it
     print('Loading network...')
     net, net_name = get_network_model(hyp)
+    if args.paper_cgsn_bce:
+        net_name += '_paper_cgsn_bce' # preserve the seed, isolate new checkpoints and logs
     net.apply(weights_init)
     net = net.float()
     net.to(hyp['optimizer']['device'])
@@ -198,7 +203,7 @@ if __name__ == '__main__':
 
                 outputs = net(actvs[:,:-1,:],args.provide_loc*next_fix_rel_coords) # only feed actvs[:,:-1,:] as input as the last fixation isn't used as an input
 
-                loss, contrastive_loss_floor = compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_multihot,cpc_mask,hyp,compute_contrastive_floor)
+                loss, contrastive_loss_floor = compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_multihot,cpc_mask,hyp,compute_contrastive_floor,paper_cgsn_bce=args.paper_cgsn_bce)
             
             scaler.scale(loss).backward(retain_graph=True)
             scaler.step(optimizer)
@@ -238,7 +243,7 @@ if __name__ == '__main__':
 
                 outputs = net(actvs[:,:-1,:],args.provide_loc*next_fix_rel_coords) # only feed actvs[:,:-1,:] as input as the last fixation isn't used as an input
 
-                loss, contrastive_loss_floor = compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_multihot,cpc_mask,hyp,compute_contrastive_floor)
+                loss, contrastive_loss_floor = compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_multihot,cpc_mask,hyp,compute_contrastive_floor,paper_cgsn_bce=args.paper_cgsn_bce)
 
             val_loss_running += loss.item()
             if compute_contrastive_floor:

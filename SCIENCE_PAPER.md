@@ -1,0 +1,101 @@
+# Science Advances data and model reference
+
+Run the across-model analyses in [paper_plots.ipynb](paper_plots.ipynb). Choose one network in [gpn_analysis.ipynb](gpn_analysis.ipynb). Both notebooks expect to be run from the repository root.
+
+## Data layout
+
+All paths below are relative to the repository root. Save the archives from the [GPN Zenodo record](https://doi.org/10.5281/zenodo.20667384) in that folder. Join the four RDM parts in order with the command below; each `science-paper-*.zip` extracts independently. Then follow the extraction commands in the [README quick start](README.md#quick-start), which extract the Science Advances RDM ZIPs after `rdms.zip` so the published analysis files take precedence. Four overlapping model RDMs have different contents in the published analysis set.
+
+```bash
+cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip
+```
+
+| Archive | Files after extraction | Purpose |
+| --- | --- | --- |
+| `datasets.zip` | `datasets/coco-test-515.h5`, `datasets/coco_dg3_fixations_test_515.h5`, `datasets/coco_NSD_dg3fix91_r50v{1,5,6}ap_7fix_test_515.h5`, `datasets/SCEGRAM/` | Test scenes, fixations, and ILSVRC/DINOv2-B/SimCLR glimpse embeddings; SCEGRAM images and coordinates. |
+| `logs.zip` (extract under `train/`) | `train/logs/net_params/<id>/<id>.pth`, `train/logs/perf_logs/` | Best checkpoints for the 12 core GPNs and two GSNs, controls, and training histories. |
+| `rdms.part_*` (join as `rdms.zip`) | `rdms/` | Comparison-network and other RDMs used by the notebooks. |
+| `science-paper-rdms-*.zip` (12) | `rdms/gpn_rdms_<id>.pkl` for all 46 published models, `rdms/streams_all_neural_rdms_correlation_special515.pkl`, `analysis_helpers/best_layers_streams_allrois.pkl` | Model-to-brain comparisons and layer selection. |
+| `science-paper-analysis-cache.zip` (1) | `saved_actvs/science_paper_behavior_cache.pkl`, `saved_actvs/best_network_layers.pkl`, small probe caches | Paper-wide behavior plots, position-decoding results, and GPN-R-SimCLR probes. |
+| `science-paper-models-*.zip` (13) | 32 additional GPN checkpoints under `train/logs/net_params/`, plus `dvd-b-565.pth` | Published GPNs using the eight additional backbones. |
+| `science-paper-test-embeddings-*.zip` (7) | `datasets/coco_NSD_dg3fix91_r50v<ID>ap_7fix_test_515.h5` for IDs 4 and 7–13 | Test embeddings for the eight additional backbones. |
+| `science-paper-additional-logs.zip` (1) | `train/logs/perf_logs/<id>/loss_<id>.npz` for 32 additional GPNs | Training histories for the additional-backbone models. |
+| `science-paper-core-activations-GPN-R-SimCLR.zip` and `science-paper-core-activations-GPN-RS-ILSVRC.zip` (2) | `saved_actvs/<id>_repr.pkl` | Exact saved activations for two selected models. |
+
+The `{1,5,6}` dataset filename notation abbreviates three separate files. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). For exact archive names and extracted paths for each of the 46 models, use [DATA_ASSETS.json](DATA_ASSETS.json). [DATA_SHA256SUMS](DATA_SHA256SUMS) lists checksums for the 36 Science Advances ZIPs; each archive group includes a `MANIFEST-*.json` in its final ZIP.
+
+### Minimum files by task
+
+| Task | Download |
+| --- | --- |
+| View the saved notebook outputs on GitHub | Nothing. |
+| Rerun `paper_plots.ipynb` | `rdms.part_aa`–`rdms.part_ad`, all 12 `science-paper-rdms-*.zip`, and `science-paper-analysis-cache.zip`. No checkpoint, test dataset, or backbone download is needed. |
+| Default setup for `paper_plots.ipynb` and the SimCLR/ILSVRC B/S/R/RS models in `gpn_analysis.ipynb` | The summary files above, `datasets.zip`, `logs.zip`, and the two selected activation ZIPs. The checkpoint and test embeddings for all eight models are included; the single-model notebook computes missing activations automatically. |
+| Inspect one additional-backbone GPN | Default setup plus the model's checkpoint ZIP and backbone test-embedding ZIP from `DATA_ASSETS.json`. Get `science-paper-additional-logs.zip` only for its training history. Its activations are computed from the checkpoint and test embeddings. |
+| Inspect all 46 published models | Default setup plus all 13 `science-paper-models-*.zip` and all seven `science-paper-test-embeddings-*.zip`. Add `science-paper-additional-logs.zip` for their training histories. |
+| Train all 46 models from initialization | Requires the full training and validation embedding datasets, which these analysis archives do not supply. |
+
+For an additional-backbone GPN, this prints the two extra ZIPs to download from Zenodo and the commands to extract them from the repository root. Replace the example name with any additional-backbone GPN in `DATA_ASSETS.json`:
+
+```bash
+python - <<'PY'
+import json
+model = 'GPN-RS-ViT'
+assets = json.load(open('DATA_ASSETS.json'))['models'][model]
+for kind in ('checkpoint', 'test_embeddings'):
+    archive = assets[kind]['archive']
+    print(f'{kind}: download {archive}')
+    print(f'unzip -oq {archive}')
+PY
+```
+
+The `rdm` archive and analysis cache are already part of the default setup. For an additional-backbone GPN, get its `checkpoint` and `test_embeddings` archives; its `training_log` archive is optional. Extract `logs.zip` under `train/`, and extract every other ZIP into the repository root. The selected GPN/GSN model needs its backbone's test-515 embedding file only when the notebook computes activations rather than loading a saved activation cache. This recomputation creates a local activation file but is not guaranteed to reproduce the supplied saved file byte for byte: device arithmetic and shuffled test batches can affect values and order. The supplied analysis cache and RDMs preserve the published summary inputs. Optional probes that extract embeddings from new images may also need the selected backbone's weights or package; the SCEGRAM source images are in `datasets.zip`. For your own glimpse images, [Hugging Face](https://huggingface.co/novelmartis/GPN) offers the four SimCLR GPNs and two matched GSNs without the Zenodo analysis archives.
+
+## Additional backbone IDs
+
+Use `--bbv` for training and `--r50v` for dataset generation with these backbone IDs. Dataset filenames use `r50v<ID>` for each backbone.
+
+| Backbone | ID | Features | Input dropout, B / S / R / RS |
+| --- | ---: | ---: | --- |
+| RN50-DVD-B | 4 | 2048 | .1 / .1 / .1 / .1 |
+| EfficientNet-B1 | 7 | 1280 | .1 / .1 / .25 / .1 |
+| ViT-B/32 | 8 | 768 | .1 / .1 / .25 / .25 |
+| RN101-ILSVRC | 9 | 2048 | .1 / .1 / .25 / .1 |
+| ConvNeXt-Tiny | 10 | 768 | .1 / .1 / .1 / .1 |
+| Swin-T | 11 | 768 | .1 / .1 / .1 / .1 |
+| MaxViT-T | 12 | 512 | .1 / .1 / .1 / .1 |
+| CORnet-S | 13 | 512 | .1 / .1 / .1 / .1 |
+
+LSTM dropout is .1 for these backbones. B/S use `--recurrence 0`; R/RS use `--recurrence 1`. S/RS use `--provide_loc 1`; B/R use `--provide_loc 0`. CORnet-S needs the optional [CORnet package](https://github.com/dicarlolab/CORnet) only when selected. The DVD-B backbone checkpoint in the models archive extracts to `dvd-b-565.pth`.
+
+## cGSN training
+
+The published cGSN used binary cross-entropy with logits and multihot scene labels. To train a new cGSN with that objective, explicitly add `--paper_cgsn_bce` with `--scene_loss 1`:
+
+```bash
+cd train
+python train_net.py --bbv 6 --recurrence 1 --provide_loc 0 \
+  --glimpse_loss 0 --semantic_loss 0 --scene_loss 1 --paper_cgsn_bce \
+  --input_dropout 0.5 --rnn_dropout 0.25 --trainer train_515 --network_id 1
+```
+
+The flag creates separately named checkpoints and loss logs. Training requires the full train/validation datasets and a suitable GPU environment; the notebooks use published checkpoints and do not retrain.
+
+## Figure entry points
+
+| Result | Notebook section |
+| --- | --- |
+| Figs. 2–3; S1–S3; S7–S10 | `paper_plots.ipynb`: behavior, neural alignment, fixation controls |
+| Fig. 4B; Figs. S6/S11 | `paper_plots.ipynb`: layers and backbone sweep |
+| Single-model behavior, binding, and representations | `gpn_analysis.ipynb` |
+| Fig. S5 searchlight | External Doerig et al. analysis code was used; not recomputed by these notebooks |
+
+Fig. 1 is a schematic. Some qualitative panels were manually composed from model outputs. See [PAPER_AUDIT.md](PAPER_AUDIT.md) for checks and reporting differences.
+
+## Verification
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The unit tests run offline. `GPN_PAPER_DATA_ROOT` enables checks of all 46 checkpoints when the archives are extracted. `GPN_SCIENCE_BASELINE` enables byte-for-byte comparison to the baseline regression fixtures. `GPN_CLUSTER_SOURCE` enables a direct cGSN loss/gradient comparison to the training-cluster helper. The notebooks generate the scientific figures; tests check code contracts and numerical compatibility.

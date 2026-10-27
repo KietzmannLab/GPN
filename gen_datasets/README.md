@@ -1,11 +1,5 @@
-# GPN/GSN training
-Codebase for generating the glimpse sequences datasets.
+# Glimpse-sequence datasets
 
-## Codebase map
-1. Run [gen_actvs_fix_data.py](gen_actvs_fix_data.py) with the appropriate hyperparameters to generate glimpse sequences, given the chosen backbone — the default setting will extract the glimpses and their embeddings on the 'test' split with a RN50-SimCLR backbone.
-2. Run [gen_actvs_fix_data_test_515.py](gen_actvs_fix_data_test_515.py) with the appropriate hyperparameters to generate the 'test-515' split datasets for analyses.
+`gen_actvs_fix_data.py` extracts glimpse crops and backbone embeddings from COCO scenes and DeepGaze 3 fixation traces. Its default arguments select the test split and RN50-SimCLR. `gen_actvs_fix_data_test_515.py` selects the special-515 scenes from those outputs for the analysis notebooks.
 
-## Requirements
-1. Assuming access to the COCO scenes and MPNet embeddings of scene captions in h5 format, and access to DeepGaze3 extracted fixations on these scenes. Please contact Prof. Tim Kietzmann for access to these large datasets in h5 format.
-2. In [gen_actvs_fix_data.py](gen_actvs_fix_data.py), on line 33, include the path to the folder which should contain the glimpse sequences dataset.
-3. In [gen_actvs_fix_data_test_515.py](gen_actvs_fix_data_test_515.py), change all the paths to point to the folder which contains the glimpse sequences dataset.
+Generating these files requires the full source COCO scenes, caption embeddings, fixation traces, and special-515 indices. Configure the source, output, and backbone-weight paths in the scripts for your environment. The published test-515 datasets are supplied on [Zenodo](https://doi.org/10.5281/zenodo.20667384); see [Science paper data and models](../SCIENCE_PAPER.md) for the download map and backbone IDs.

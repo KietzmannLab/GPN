@@ -1,42 +1,52 @@
 # Glimpse Prediction Networks
-Official codebase of the GPN project. Release v1. (archived at [OSF](https://osf.io/g29pd))
 
-This repository is geared towards making all the code and analyses from the paper ([https://arxiv.org/abs/2511.12715](https://arxiv.org/abs/2511.12715)) possible. 
+Code and analyses for [Thorat et al., *Science Advances* (2026)](https://doi.org/10.1126/sciadv.aee1955). The four SimCLR GPNs and two GSN controls are also available on [Hugging Face](https://huggingface.co/novelmartis/GPN) for quick inference. S/RS use saccade inputs; B/R and both GSNs use zero saccade tensors, as in training.
 
-If instead you are interested in quickly accessing the best NSD-aligned GPN models (SimCLR backbone), check out the [HuggingFace](https://huggingface.co/novelmartis/GPN) repository.
-
-## Codebase map
-1. The figures included in the paper can be plotted using [paper_plots.ipynb](paper_plots.ipynb) and [gpn_analysis.ipynb](gpn_analysis.ipynb)
-2. The mapping between GPN/GSN variant/backbone names and their identifiers can be found in [paper_plots.ipynb](paper_plots.ipynb)
-3. GPN/GSN training scripts can be found under [train](train/)
-4. Scripts to generate the datasets of glimpse sequences can be found under [gen_datasets](gen_datasets/)
-5. Scripts to extract the RDMs for alternative networks, and to find the best-ROI-aligned layers, can be found under [alternative_models](alternative_models/)
-
-## Requirements
-
-### Environment setup
-The code has been tested with:
-- Python 3.9.19 + PyTorch 2.3.1 (CPU) on macOS (Apple M1)
-- Python 3.10.12 + PyTorch 2.5.1+cu118 on a Linux HPC cluster
-
-Clone this repository (or download it directly):
+## Quick start
 
 ```bash
 git clone https://github.com/KietzmannLab/GPN.git
 cd GPN
+conda env create -f environment.yml
+conda activate gpn-science
 ```
 
-Setup your enviroment as:
+For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, `science-paper-core-activations-GPN-R-SimCLR.zip`, and `science-paper-core-activations-GPN-RS-ILSVRC.zip` from the [GPN data record](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for those two models in the single-model notebook.
+
+Save these files directly in the cloned `GPN/` folder, open a macOS/Linux terminal there, and run the commands below. The download is about 24.2 GB; joining the RDM parts creates another 14.4 GB file, and extraction needs further free space. Join only the `rdms.part_*` files; each Science Advances ZIP extracts independently:
 
 ```bash
-conda env create -f environment.yml
-conda activate gpn
+cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip
+unzip -oq datasets.zip
+unzip -oq logs.zip -d train
+unzip -oq rdms.zip
+unzip -oq science-paper-analysis-cache.zip
+for archive in science-paper-rdms-*.zip; do unzip -oq "$archive"; done
+unzip -oq science-paper-core-activations-GPN-R-SimCLR.zip
+unzip -oq science-paper-core-activations-GPN-RS-ILSVRC.zip
 ```
-In 'environment.yml', uncomment lines 5 and 30 when using a GPU and set the required cuda version.
-CLIP and DeepGaze are not installed in this setup. If desired:
-1. pip install "git+https://github.com/openai/CLIP.git"
-2. Clone and install https://github.com/matthias-k/DeepGaze
 
-### Pretrained networks and analysis data
-1. Download the 'logs' folder from [OSF](https://doi.org/10.17605/OSF.IO/G29PD) and place it under [train/](train/) — these contain the pretrained GPN/GSN weights and performance metrics. (~3GB)
-2. Download 'saved_actvs', 'rdms', and 'datasets' from [OSF](https://doi.org/10.17605/OSF.IO/G29PD) and place them at the same level as the figure plotting scripts before executing them — these contain analysis-relevant data from the networks, their rdms, and the 'test-515' glimpse sequences and COCO images datasets, and the SCEGRAM dataset, required in [gpn_analysis.ipynb](gpn_analysis.ipynb) (~40GB)
+Open the summary notebook:
+
+```bash
+jupyter notebook paper_plots.ipynb
+```
+
+Both notebooks include saved default outputs that can be viewed on GitHub without setup. Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
+
+Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All for its default `GPN-R-SimCLR`. Change its model-selection cell to inspect another network. The B/S/R/RS SimCLR and ILSVRC checkpoints and test embeddings are in `logs.zip` and `datasets.zip`; the notebook computes and saves activations if that model's exact cache is absent. For the 32 GPNs with other backbones, download only the checkpoint and test-embedding ZIPs listed for that model in [DATA_ASSETS.json](DATA_ASSETS.json); extract each into the repository root. Download `science-paper-additional-logs.zip` if you want those models' training histories. Recomputed activations can differ slightly from the supplied saved activations because of device arithmetic and test-loader shuffling; the summary notebook uses the supplied published analysis cache and RDMs. See [Science paper data and models](SCIENCE_PAPER.md) for the full download map and optional backbone requirements.
+
+The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the GPN on its GPU. The DINOv2 image-embedding helper uses CPU. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script uses CUDA by default.
+
+The data bundles, model names, and optional training commands are described in [Science paper data and models](SCIENCE_PAPER.md). Differences between the published text and the available analysis code/data are recorded in [Paper audit](PAPER_AUDIT.md).
+
+## Repository map
+
+- [paper_plots.ipynb](paper_plots.ipynb): results across networks and brain regions.
+- [gpn_analysis.ipynb](gpn_analysis.ipynb): behavior and representations of one selected model.
+- [train/](train/): model definition and training.
+- [gen_datasets/](gen_datasets/): glimpse-sequence embedding generation.
+- [analysis_helpers/](analysis_helpers/): RSA, model identifiers, and plotting helpers.
+- [alternative_models/](alternative_models/): alternative-network extraction and layer selection.
+
+The pinned environment targets Python 3.10 and PyTorch 2.7.1 on macOS. The published models were trained with PyTorch 2.5.1 and CUDA on the cluster; for new GPU training, adjust the PyTorch and CUDA lines in [environment.yml](environment.yml). Optional CLIP and DeepGaze installations are described in the relevant helper scripts.

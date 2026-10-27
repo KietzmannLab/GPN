@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-extract_RDMs_optimized.py  —  Memory‑efficient extraction of activations & RDMs
+extract_coco_rdms_actvs.py  —  Memory‑efficient extraction of activations & RDMs
 --------------------------------------------------------------------------
 * Streams activations to an on‑disk HDF5 file in float16 instead of keeping
   every layer × image in RAM.
@@ -30,7 +30,7 @@ Options:
    convnext_tiny
 
 Usage example:
-    python extract_RDMs_optimized.py \
+    python extract_coco_rdms_actvs.py \
         --model rn50 --split test_515 \
         --batch_size 64 --out_dir ./RDMs
 """
@@ -128,15 +128,14 @@ def get_fixation_history(fixation_coordinates, model):
     """
     Given a Python list `fixation_coordinates` of (x,y) tuples,
     returns a list of length `len(model.included_fixations)` where
-    positions beyond the available history are filled with nan.
+    positions beyond the available history are filled with -1.
     """
     history = []
     for idx in model.included_fixations:
         try:
             history.append(fixation_coordinates[idx])
         except IndexError:
-            # history.append(np.nan) # this is how the original code did it
-            history.append(-1) # to align with Varun's code; works well
+            history.append(-1)  # Unavailable fixation history.
     return history
 def preprocess_batch(img_batch,model,device): # for DG3
     from scipy.ndimage import zoom

@@ -1,0 +1,16 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+datasets/
+rdms/
+saved_actvs/
+train/logs/
+figures/
+/datasets.zip
+/logs.zip
+/rdms.part_*
+/rdms.zip
+/science-paper-*.zip
+/MANIFEST-science-paper-*.json
+/dvd-b-565.pth

@@ -41,8 +41,9 @@ def get_network_model(hyp):
     if hyp['network']['model'] == 'lstm':
 
         from .GPN import lstm_gpn
+        from .backbones import feature_dim
 
-        net = lstm_gpn(timestep_multiplier=timestep_multiplier,glimpse_loss=glimpse_loss,semantic_loss=semantic_loss,scene_loss=scene_loss,gazeloc_loss=gazeloc_loss,n_rnn=n_rnn,regularisation=regularisation,input_dropout=input_dropout,rnn_dropout=rnn_dropout,return_all_actvs=analysis_mode, input_split=input_split, recurrence=recurrence, input_feats=768 if bbv == 5 else 2048) 
+        net = lstm_gpn(timestep_multiplier=timestep_multiplier,glimpse_loss=glimpse_loss,semantic_loss=semantic_loss,scene_loss=scene_loss,gazeloc_loss=gazeloc_loss,n_rnn=n_rnn,regularisation=regularisation,input_dropout=input_dropout,rnn_dropout=rnn_dropout,return_all_actvs=analysis_mode, input_split=input_split, recurrence=recurrence, input_feats=feature_dim(bbv))
 
         net_name = f'gpn_lstm_n_{n_rnn}_tm_{timestep_multiplier}_t_{timesteps}_recurrence_{recurrence}_loc_{provide_loc}_bbv{bbv}_gaze_{gaze_type}_indp_{input_dropout}_rnndp_{rnn_dropout}_gcpc_{glimpse_loss}_semc_{semantic_loss}_scc_{scene_loss}_locmse_{gazeloc_loss}_insplit_{input_split}_reg_{regularisation}_tr_{trainer}_gdva_{dva_dataset}_lr_{lr}_num_{network_id}'
 
@@ -109,7 +110,7 @@ def get_optimizer(hyp,net):
     if hyp['optimizer']['type'] == 'adam': # write an optimizer with access to the entire net and another for finetuning desired outputs
         return optim.Adam(net.parameters(),lr=1.)
     
-def compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_embed,cpc_mask,hyp,compute_contrastive_floor):
+def compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_embed,cpc_mask,hyp,compute_contrastive_floor,paper_cgsn_bce=False):
 
     loss_combined = 0.
     contrastive_loss_floor = 0.
@@ -166,12 +167,18 @@ def compute_losses(outputs,actvs,fix_coords,semantic_embed,scene_embed,cpc_mask,
         
         similarity_matrix = (A / A.norm(dim=1, keepdim=True)) @ (B / B.norm(dim=1, keepdim=True)).T
 
-        loss_combined += similarity_matrix[cpc_mask==3].mean() - similarity_matrix[cpc_mask==1].mean()
+        if paper_cgsn_bce:
+            # The published cGSN was trained with this cluster-side objective.
+            loss_combined += torch.nn.BCEWithLogitsLoss()(B, A.float())
+            if compute_contrastive_floor:
+                contrastive_loss_floor += 0*loss_combined
+        else:
+            loss_combined += similarity_matrix[cpc_mask==3].mean() - similarity_matrix[cpc_mask==1].mean()
 
-        if compute_contrastive_floor:
+            if compute_contrastive_floor:
 
-            similarity_matrix = (A / A.norm(dim=1, keepdim=True)) @ (A / A.norm(dim=1, keepdim=True)).T
-            contrastive_loss_floor += similarity_matrix[cpc_mask==3].mean() - similarity_matrix[cpc_mask==1].mean()
+                similarity_matrix = (A / A.norm(dim=1, keepdim=True)) @ (A / A.norm(dim=1, keepdim=True)).T
+                contrastive_loss_floor += similarity_matrix[cpc_mask==3].mean() - similarity_matrix[cpc_mask==1].mean()
 
     elif hyp['optimizer']['losses']['scene_loss'] == 2:
 

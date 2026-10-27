@@ -41,7 +41,6 @@ import torch.nn.functional as F
 from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
 from scipy.ndimage import zoom
-PYTORCH_ENABLE_MPS_FALLBACK=1
 
 ### Network name abbrv
 
@@ -112,6 +111,15 @@ def get_net_params(net_abbrv):
         dpout_rnn_value = 0.1
         n_rnn_value = 512
         l_rnn_value = 1
+    # Backbone configurations used in published Figs. S6/S11.
+    extra = re.fullmatch(r'GPN-(B|S|R|RS)-(DVD|EffNet|ViT|RN101|ConvNext|Swin|MaxViT|cornet)', net_abbrv)
+    if extra:
+        variant, backbone = extra.groups()
+        bbv_value = {'DVD': 4, 'EffNet': 7, 'ViT': 8, 'RN101': 9,
+                     'ConvNext': 10, 'Swin': 11, 'MaxViT': 12, 'cornet': 13}[backbone]
+        dpout_in_value = 0.25 if ((backbone in ('EffNet', 'RN101') and variant == 'R')
+                                 or (backbone == 'ViT' and variant in ('R', 'RS'))) else 0.1
+        dpout_rnn_value = 0.1
     return r_value, s_value, bbv_value, n_rnn_value, l_rnn_value, dpout_in_value, dpout_rnn_value, gaze_type_value, dva_dataset
 
 ### Package the required hyperparameters for the model
@@ -418,17 +426,19 @@ def compute_cossim(outputs,actvs,semantic_embed=None,cpc_mask=None,hyp=None):
     for idx in range(outputs[dim_h].shape[1]):
         idxs_h = outputs[dim_h].shape[1]*np.arange(outputs[dim_h].shape[0]) + idx
         cs_sm_mt_h = cosine_similarity_matrix[:,idxs_h]
-        cs_sm_mt_h_ranks = cs_sm_mt_h.detach().numpy().argsort(axis=0).argsort(axis=0)
+        cs_sm_mt_h_ranks = cs_sm_mt_h.detach().cpu().numpy().argsort(axis=0).argsort(axis=0)
         cpc_ms_h = cpc_mask[:,idxs_h]
         A_filter_map_h = A_filter_map[:,idxs_h]
-        cos_sim_target[idx] += cs_sm_mt_h[cpc_ms_h==1].mean().detach().numpy()
-        rank_target[idx] += cs_sm_mt_h_ranks[cpc_ms_h==1].mean()
+        rank_mask = cpc_ms_h.detach().cpu().numpy()
+        rank_filter = A_filter_map_h.detach().cpu().numpy()
+        cos_sim_target[idx] += cs_sm_mt_h[cpc_ms_h==1].mean().detach().cpu().numpy()
+        rank_target[idx] += cs_sm_mt_h_ranks[rank_mask==1].mean()
         if hyp['optimizer']['losses']['glimpse_loss']:
-            cos_sim_other_fix[idx] += cs_sm_mt_h[(cpc_ms_h==2)&A_filter_map_h].mean().detach().numpy()
-            cos_sim_current_fix[idx] += cosine_similarity_current[idxs_h].sum(dim=1).mean().detach().numpy()
-            rank_other_fix[idx] += cs_sm_mt_h_ranks[(cpc_ms_h==2)&A_filter_map_h].mean()
-        cos_sim_other_sc[idx] += cs_sm_mt_h[cpc_ms_h==3].mean().detach().numpy()
-        rank_other_sc[idx] += cs_sm_mt_h_ranks[cpc_ms_h==3].mean()
+            cos_sim_other_fix[idx] += cs_sm_mt_h[(cpc_ms_h==2)&A_filter_map_h].mean().detach().cpu().numpy()
+            cos_sim_current_fix[idx] += cosine_similarity_current[idxs_h].sum(dim=1).mean().detach().cpu().numpy()
+            rank_other_fix[idx] += cs_sm_mt_h_ranks[(rank_mask==2)&rank_filter].mean()
+        cos_sim_other_sc[idx] += cs_sm_mt_h[cpc_ms_h==3].mean().detach().cpu().numpy()
+        rank_other_sc[idx] += cs_sm_mt_h_ranks[rank_mask==3].mean()
         if hyp['optimizer']['losses']['glimpse_loss']:
             cos_sim_diff[idx] += cos_sim_target[idx] - (cos_sim_other_fix[idx]+cos_sim_other_sc[idx])/2
         elif hyp['optimizer']['losses']['semantic_loss']:
@@ -498,12 +508,12 @@ def extract_activations_metrics(dataloader, net, hyp):
                 if key not in lstm_reps:
                     lstm_reps[key] = []
                 lstm_reps[key].append(activations[key].detach().cpu().numpy())
-        scene_reps.append(scene_embed.detach().numpy())
-        scene_multihot_reps.append(scene_multihot.detach().numpy())
-        fix_coords_all.append(fix_coords.detach().numpy())
-        llm_reps.append(semantic_embed.detach().numpy())
-        actv_reps.append(activations['rn50_glimpse'].detach().numpy())
-        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().numpy())
+        scene_reps.append(scene_embed.detach().cpu().numpy())
+        scene_multihot_reps.append(scene_multihot.detach().cpu().numpy())
+        fix_coords_all.append(fix_coords.detach().cpu().numpy())
+        llm_reps.append(semantic_embed.detach().cpu().numpy())
+        actv_reps.append(activations['rn50_glimpse'].detach().cpu().numpy())
+        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().cpu().numpy())
         img_n_all.append(img_n.numpy())
         trace_n_all.append(trace_n.numpy())
         idx_output_h = 0 if glimpse_loss else 1 if semantic_loss else 2
@@ -595,9 +605,9 @@ def extract_activations_metrics_e2e(dataloader, net, hyp):
                 if key not in lstm_reps:
                     lstm_reps[key] = []
                 lstm_reps[key].append(activations[key].detach().cpu().numpy())
-        fix_coords_all.append(fix_coords.detach().numpy())
-        actv_reps.append(activations['rn50_glimpse'].detach().numpy())
-        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().numpy())
+        fix_coords_all.append(fix_coords.detach().cpu().numpy())
+        actv_reps.append(activations['rn50_glimpse'].detach().cpu().numpy())
+        next_fix_rel_coords_all.append(next_fix_rel_coords.detach().cpu().numpy())
         img_n_all.append(img_n.numpy())
         trace_n_all.append(trace_n.numpy())
         output_reps.append(outputs[0].detach().cpu().numpy())
@@ -627,6 +637,16 @@ def extract_activations_metrics_e2e(dataloader, net, hyp):
 
 def get_RN50_embeddings(images, bbv=1):
 
+    if bbv in range(7, 14):
+        from train.models.backbones import load_extended_backbone, forward_features
+        model, preprocess, layer, cls_token = load_extended_backbone(bbv)
+        device = 'cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu'
+        model.to(device).eval()
+        inputs = preprocess(torch.from_numpy(images).permute(0, 3, 1, 2)).to(device)
+        with torch.no_grad():
+            embeddings = forward_features(model, layer, inputs, cls_token)
+        return embeddings.detach().cpu().numpy().squeeze()
+
     # Load model
     preprocess = transforms.Compose([
         transforms.Resize(224, antialias=True), # resize to 224 as expected by IMAGENET1K_V1/2
@@ -647,6 +667,8 @@ def get_RN50_embeddings(images, bbv=1):
         model = resnet50()
         model.fc = torch.nn.Linear(2048, 565) # DVD-B has 565-dim output (ecoset)
         model_path = 'dvd-b-565.pth'
+        if not os.path.exists(model_path):
+            model_path = 'analysis_helpers/dvd-b-565.pth'
         state_dict = torch.load(model_path, map_location='cpu')['state_dict']
         state_dict = {k.replace('module._orig_mod.', ''): v for k, v in state_dict.items()}  # remove 'module._orig_mod.' prefix
         model.load_state_dict(state_dict)
@@ -1135,7 +1157,7 @@ def variance_partitioning_analysis(
     total_explained_all = np.asarray(total_explained_all)
 
     # ------------------------------------------------------------------
-    # Visualisation — identical to your original
+    # Visualisation
     # ------------------------------------------------------------------
     data   = [unique_A_all, unique_B_all, shared_all, total_explained_all]
     labels = [f"Unique {A_name}", f"Unique {B_name}", "Shared", "Total explained"]

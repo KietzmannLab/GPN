@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the published GPN paper."
+type: software
+title: Glimpse Prediction Networks
+authors:
+  - family-names: Thorat
+    given-names: Sushrut
+  - family-names: Doerig
+    given-names: Adrien
+  - family-names: Kroner
+    given-names: Alexander
+  - family-names: Amme
+    given-names: Carmen
+  - family-names: Kietzmann
+    given-names: Tim C.
+repository-code: "https://github.com/KietzmannLab/GPN"
+license: MIT
+preferred-citation:
+  type: article
+  title: "Predicting upcoming visual features during eye movements yields scene representations aligned with human visual cortex"
+  authors:
+    - family-names: Thorat
+      given-names: Sushrut
+    - family-names: Doerig
+      given-names: Adrien
+    - family-names: Kroner
+      given-names: Alexander
+    - family-names: Amme
+      given-names: Carmen
+    - family-names: Kietzmann
+      given-names: Tim C.
+  journal: Science Advances
+  year: 2026
+  volume: 12
+  issue: 43
+  doi: 10.1126/sciadv.aee1955

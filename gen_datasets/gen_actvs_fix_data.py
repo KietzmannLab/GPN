@@ -86,14 +86,23 @@ elif rn50_v == 6: # SimCLR
         transforms.Resize(224, antialias=True),
         transforms.ConvertImageDtype(torch.float),
     ])
+elif rn50_v in range(7, 14):
+    # Backbone IDs 7-13 use the paper sweep encoders.
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from train.models.backbones import feature_dim, load_extended_backbone
+    net, preprocess, feature_layer, _ = load_extended_backbone(rn50_v)
+    actvs_dim = feature_dim(rn50_v)
+
 net.to(device)
 if rn50_v != 5:
     activation = {} # remember to empty the list after each forward pass
     def get_activation(name):
         def hook(model, input, output):
-            activation[name] = output.detach()
+            activation[name] = (output[:, 0, :] if rn50_v == 8 else output).detach()
         return hook
-    net.avgpool.register_forward_hook(get_activation('avgpool'))
+    (feature_layer if rn50_v in range(7, 14) else net.avgpool).register_forward_hook(get_activation('avgpool'))
 net.eval() # important!! so it uses the trained batchnorm stats
 
 print('Network is loaded. Preparing h5...\n')
@@ -114,7 +123,6 @@ with h5py.File(output_path, "w") as f:
 
         n_imgs = original_data[split]['densenet_deepgaze_fixations'].shape[0]
         n_fix_traces = original_data[split]['densenet_deepgaze_fixations'].shape[1]
-        # n_fixs = original_data[split]['densenet_deepgaze_fixations'].shape[2]
         print('Creating fix_dg3 {} dataset with {} images, {} traces, {} fixations...\n'.format(split, int(n_imgs), int(n_fix_traces), int(n_fixs)), end='')
 
         group = f.create_group(split)
