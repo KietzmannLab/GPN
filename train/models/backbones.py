@@ -1,14 +1,11 @@
-"""Feature specifications for the additional Science Advances backbone sweep.
-
-The original backbone implementations (IDs 0-6) remain in their existing callers.
-"""
+"""Feature dimensions and loaders for the Science Advances backbone sweep."""
 
 FEATURE_DIMS = {5: 768, 7: 1280, 8: 768, 9: 2048, 10: 768,
                 11: 768, 12: 512, 13: 512}
 
 
 def feature_dim(bbv):
-    """Keep the original 2048-dimensional default for the existing backbones."""
+    """Return the feature dimension; unspecified IDs use 2048 features."""
     return FEATURE_DIMS.get(bbv, 2048)
 
 

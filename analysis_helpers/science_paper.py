@@ -31,7 +31,7 @@ def read_pickle(path):
 
 
 def model_layers(rdms, n_pairs):
-    """Exclude target RDMs while retaining the original order of model layers."""
+    """Exclude target RDMs while retaining the dataset's model-layer order."""
     layers = [key for key in rdms if key not in ('semantic_embed', 'scene_embed')]
     if not layers or any(np.shape(rdms[key]) != (6, n_pairs) for key in layers):
         raise ValueError('Expected each model layer RDM to have shape (6, n_scene_pairs)')
@@ -160,7 +160,7 @@ def run(data_root, output_dir, figures=('4', 'S6', 'S11')):
             writer.writerow(['roi', 'model', 'layer', 'glimpse', 'mean_r2']
                             + [f'subject_{i+1}' for i in range(len(neural))])
             writer.writerows(rows)
-    # Reuse the original alternative-model layer-selection results if available.
+    # Load saved alternative-model layer selections when available.
     metadata_path = root / 'analysis_helpers/best_layers_streams_allrois.pkl'
     metadata = read_pickle(metadata_path) if metadata_path.exists() else None
     for roi in rois:

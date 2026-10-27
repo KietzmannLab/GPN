@@ -21,15 +21,14 @@ def get_fixation_history(fixation_coordinates, model):
     """
     Given a Python list `fixation_coordinates` of (x,y) tuples,
     returns a list of length `len(model.included_fixations)` where
-    positions beyond the available history are filled with nan.
+    positions beyond the available history are filled with -1.
     """
     history = []
     for idx in model.included_fixations:
         try:
             history.append(fixation_coordinates[idx])
         except IndexError:
-            # history.append(np.nan) # this is how the original code did it
-            history.append(-1) # to align with Varun's code
+            history.append(-1)  # Unavailable fixation history.
     return history
 
 class OnTheFlyExtractor(nn.Module):

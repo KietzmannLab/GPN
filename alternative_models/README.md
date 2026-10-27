@@ -1,11 +1,5 @@
-# GPN/GSN training
-Codebase for extracting the RDMs for the alternative models.
+# Alternative-model RDMs
 
-## Codebase map
-1. Run [extract_coco_rdms_actvs.py](extract_coco_rdms_actvs.py) with the appropriate hyperparameters to extract RDMs from pretrained vision/vision-language models — the default setting will extract RDMs from an EfficientNet-B3 given central crops. The RDMs will be saved under ../rdms 
-3. Run [extract_best_network_corr.py](extract_best_network_corr.py) to find the layer per network whose RDM best aligns with a given ROI RDM, across the streams ROIs. The result will be saved in 'best_layers_streams_allrois.pkl'
+`extract_coco_rdms_actvs.py` extracts activations and representational dissimilarity matrices (RDMs) from comparison networks. Its default model is EfficientNet-B3, and its default output directory is `../rdms/` when run from this directory. `extract_best_network_corr.py` selects the best-aligned layer for each network and brain region using the extracted RDMs and neural RDMs in `../rdms/`.
 
-## Requirements
-1. In [extract_coco_rdms_actvs.py](extract_coco_rdms_actvs.py), on line 90, include the path to the folder which contains the test set indices of special-515 images (provided in this folder).
-2. On line 123, include the path to h5 file containing the h5 dataset containing DeepGaze3 fixations.
-3. On line 148, adjust the 'centerbias_mit1003.npy' path (file provided in this folder).
+Extraction requires the source COCO scenes, special-515 indices, fixation data for gaze-based models, and the selected network weights or package. Configure the cluster-specific source paths in `extract_coco_rdms_actvs.py` for your environment. The RDMs and layer-selection data used by the paper notebooks are supplied on [Zenodo](https://doi.org/10.5281/zenodo.20667384); see [Science paper data and models](../SCIENCE_PAPER.md).

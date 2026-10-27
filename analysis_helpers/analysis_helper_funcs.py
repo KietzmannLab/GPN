@@ -111,8 +111,7 @@ def get_net_params(net_abbrv):
         dpout_rnn_value = 0.1
         n_rnn_value = 512
         l_rnn_value = 1
-    # Additional backbones used in published Figs. S6/S11. Existing names above
-    # retain exactly their original hyperparameters.
+    # Backbone configurations used in published Figs. S6/S11.
     extra = re.fullmatch(r'GPN-(B|S|R|RS)-(DVD|EffNet|ViT|RN101|ConvNext|Swin|MaxViT|cornet)', net_abbrv)
     if extra:
         variant, backbone = extra.groups()
@@ -1158,7 +1157,7 @@ def variance_partitioning_analysis(
     total_explained_all = np.asarray(total_explained_all)
 
     # ------------------------------------------------------------------
-    # Visualisation — identical to your original
+    # Visualisation
     # ------------------------------------------------------------------
     data   = [unique_A_all, unique_B_all, shared_all, total_explained_all]
     labels = [f"Unique {A_name}", f"Unique {B_name}", "Shared", "Total explained"]

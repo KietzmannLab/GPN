@@ -87,7 +87,7 @@ elif rn50_v == 6: # SimCLR
         transforms.ConvertImageDtype(torch.float),
     ])
 elif rn50_v in range(7, 14):
-    # Additional paper backbones; keep the original IDs 0-6 path unchanged.
+    # Backbone IDs 7-13 use the paper sweep encoders.
     import sys
     from pathlib import Path
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -123,7 +123,6 @@ with h5py.File(output_path, "w") as f:
 
         n_imgs = original_data[split]['densenet_deepgaze_fixations'].shape[0]
         n_fix_traces = original_data[split]['densenet_deepgaze_fixations'].shape[1]
-        # n_fixs = original_data[split]['densenet_deepgaze_fixations'].shape[2]
         print('Creating fix_dg3 {} dataset with {} images, {} traces, {} fixations...\n'.format(split, int(n_imgs), int(n_fix_traces), int(n_fixs)), end='')
 
         group = f.create_group(split)
