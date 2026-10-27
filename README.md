@@ -11,7 +11,7 @@ conda env create -f environment.yml
 conda activate gpn-science
 ```
 
-For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, and all eight `science-paper-core-activations-GPN-*.zip` files from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for B/S/R/RS with SimCLR and ILSVRC in the single-model notebook. Extract them **into the repository root**. Only the original RDM parts need joining; each Science Advances ZIP extracts independently:
+For the default setup, download `datasets.zip`, `logs.zip`, `rdms.part_aa` through `rdms.part_ad`, `science-paper-analysis-cache.zip`, all 12 `science-paper-rdms-*.zip` files, `science-paper-core-activations-GPN-R-SimCLR.zip`, and `science-paper-core-activations-GPN-RS-ILSVRC.zip` from the [GPN data record (all versions)](https://doi.org/10.5281/zenodo.20667384). This covers the summary notebook and exact saved activations for those two models in the single-model notebook. Extract them **into the repository root**. Only the original RDM parts need joining; each Science Advances ZIP extracts independently:
 
 ```bash
 cat rdms.part_aa rdms.part_ab rdms.part_ac rdms.part_ad > rdms.zip
@@ -20,7 +20,8 @@ unzip -oq logs.zip -d train
 unzip -oq rdms.zip
 unzip -oq science-paper-analysis-cache.zip
 for archive in science-paper-rdms-*.zip; do unzip -oq "$archive"; done
-for archive in science-paper-core-activations-GPN-*.zip; do unzip -oq "$archive"; done
+unzip -oq science-paper-core-activations-GPN-R-SimCLR.zip
+unzip -oq science-paper-core-activations-GPN-RS-ILSVRC.zip
 ```
 
 Open the summary notebook:
@@ -31,7 +32,7 @@ jupyter notebook paper_plots.ipynb
 
 Both notebooks include saved default outputs that can be viewed on GitHub without setup. Use **Kernel → Restart & Run All** to reproduce the paper-wide figures and summary statistics in `figures/`. The notebook uses saved analysis data; plotting does not train models or download backbone weights.
 
-Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All for its default `GPN-R-SimCLR`. Change its model-selection cell to inspect another network. For the 32 GPNs with other backbones, download only the checkpoint and test-embedding ZIPs listed for that model in [DATA_ASSETS.json](DATA_ASSETS.json); extract each into the repository root. Download `science-paper-additional-logs.zip` if you want those models' training histories. The notebook computes activations when an exact saved cache is absent. See [Science paper data and models](SCIENCE_PAPER.md) for the full download map and optional backbone requirements.
+Then open [gpn_analysis.ipynb](gpn_analysis.ipynb) and Run All for its default `GPN-R-SimCLR`. Change its model-selection cell to inspect another network. The B/S/R/RS SimCLR and ILSVRC checkpoints and test embeddings are in `logs.zip` and `datasets.zip`; the notebook computes and saves activations if that model's exact cache is absent. For the 32 GPNs with other backbones, download only the checkpoint and test-embedding ZIPs listed for that model in [DATA_ASSETS.json](DATA_ASSETS.json); extract each into the repository root. Download `science-paper-additional-logs.zip` if you want those models' training histories. Recomputed activations can differ slightly from the original saved activations because of device arithmetic and test-loader shuffling; the summary notebook uses the supplied published analysis cache and RDMs. See [Science paper data and models](SCIENCE_PAPER.md) for the full download map and optional backbone requirements.
 
 The model notebook selects CUDA, then MPS, then CPU automatically, so Apple Silicon runs the GPN on its GPU. The DINOv2 image-embedding helper uses CPU, as in version11. Set `model_device = 'cpu'` in the first code cell when comparing newly computed values with the saved CPU reference; GPU floating-point results can differ slightly. The training script retains its CUDA default.
 

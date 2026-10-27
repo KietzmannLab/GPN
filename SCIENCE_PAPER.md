@@ -16,9 +16,9 @@ All paths below are relative to the repository root. Get the archives from the [
 | `science-paper-models-*.zip` (13) | 32 additional GPN checkpoints under `train/logs/net_params/`, plus `dvd-b-565.pth` | Published GPNs using the eight additional backbones. |
 | `science-paper-test-embeddings-*.zip` (7) | `datasets/coco_NSD_dg3fix91_r50v<ID>ap_7fix_test_515.h5` for IDs 4 and 7–13 | Test embeddings for the eight additional backbones. |
 | `science-paper-additional-logs.zip` (1) | `train/logs/perf_logs/<id>/loss_<id>.npz` for 32 additional GPNs | Training histories for the additional-backbone models. |
-| `science-paper-core-activations-GPN-<variant>-<backbone>.zip` (8) | `saved_actvs/<id>_repr.pkl` | Exact saved activations for B/S/R/RS with SimCLR or ILSVRC. |
+| `science-paper-core-activations-GPN-R-SimCLR.zip` and `science-paper-core-activations-GPN-RS-ILSVRC.zip` (2) | `saved_actvs/<id>_repr.pkl` | Exact saved activations for two selected models. |
 
-The `{1,5,6}` dataset filename notation abbreviates three separate files. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). For exact archive names and extracted paths for each of the 46 models, use [DATA_ASSETS.json](DATA_ASSETS.json). [DATA_SHA256SUMS](DATA_SHA256SUMS) checks the 42 Science Advances ZIPs; each ZIP contains a `MANIFEST-*.json`. The original `saved_actvs.part_*` archive and `GPN_v1.zip` are not required by either notebook.
+The `{1,5,6}` dataset filename notation abbreviates three separate files. Every published model name maps to its checkpoint `<id>` in [science_models.json](analysis_helpers/science_models.json). For exact archive names and extracted paths for each of the 46 models, use [DATA_ASSETS.json](DATA_ASSETS.json). [DATA_SHA256SUMS](DATA_SHA256SUMS) checks the 36 Science Advances ZIPs; each ZIP contains a `MANIFEST-*.json`. The original `saved_actvs.part_*` archive and `GPN_v1.zip` are not required by either notebook.
 
 ### Minimum files by task
 
@@ -26,7 +26,7 @@ The `{1,5,6}` dataset filename notation abbreviates three separate files. Every 
 | --- | --- |
 | View the saved notebook outputs on GitHub | Nothing. |
 | Rerun `paper_plots.ipynb` | Original `rdms.part_aa`–`rdms.part_ad`, all 12 `science-paper-rdms-*.zip`, and `science-paper-analysis-cache.zip`. No checkpoint, test dataset, or backbone download is needed. |
-| Default setup for `paper_plots.ipynb` and the SimCLR/ILSVRC B/S/R/RS models in `gpn_analysis.ipynb` | The summary files above, `datasets.zip`, `logs.zip`, and all eight `science-paper-core-activations-GPN-*.zip`. These caches provide the exact saved activations; the checkpoint and test embeddings are also available for recomputation. |
+| Default setup for `paper_plots.ipynb` and the SimCLR/ILSVRC B/S/R/RS models in `gpn_analysis.ipynb` | The summary files above, `datasets.zip`, `logs.zip`, and the two selected activation ZIPs. The checkpoint and test embeddings for all eight models are included; the single-model notebook computes missing activations automatically. |
 | Inspect one additional-backbone GPN | Default setup plus the model's checkpoint ZIP and backbone test-embedding ZIP from `DATA_ASSETS.json`. Get `science-paper-additional-logs.zip` only for its training history. Its activations are computed from the checkpoint and test embeddings. |
 | Inspect all 46 published models | Default setup plus all 13 `science-paper-models-*.zip` and all seven `science-paper-test-embeddings-*.zip`. Add `science-paper-additional-logs.zip` for their training histories. |
 | Train all 46 models from initialization | Requires the full training and validation embedding datasets, which these analysis archives do not supply. |
@@ -44,7 +44,7 @@ for kind, item in assets.items():
 PY
 ```
 
-The `rdm` archive and analysis cache are already part of the default setup. For an additional-backbone GPN, get its `checkpoint` and `test_embeddings` archives; its `training_log` archive is optional. Extract `logs.zip` under `train/`, and extract every other ZIP into the repository root. The selected GPN/GSN model needs its backbone's test-515 embedding file only when the notebook computes activations rather than loading a saved activation cache. Optional probes that extract embeddings from new images may also need the selected backbone's weights or package; the SCEGRAM source images are in `datasets.zip`. For your own glimpse images, [Hugging Face](https://huggingface.co/novelmartis/GPN) offers the four SimCLR GPNs and two matched GSNs without the Zenodo analysis archives.
+The `rdm` archive and analysis cache are already part of the default setup. For an additional-backbone GPN, get its `checkpoint` and `test_embeddings` archives; its `training_log` archive is optional. Extract `logs.zip` under `train/`, and extract every other ZIP into the repository root. The selected GPN/GSN model needs its backbone's test-515 embedding file only when the notebook computes activations rather than loading a saved activation cache. This recomputation creates a local activation file but is not guaranteed to reproduce the original saved file byte for byte: device arithmetic and shuffled test batches can affect values and order. The supplied analysis cache and RDMs preserve the published summary inputs. Optional probes that extract embeddings from new images may also need the selected backbone's weights or package; the SCEGRAM source images are in `datasets.zip`. For your own glimpse images, [Hugging Face](https://huggingface.co/novelmartis/GPN) offers the four SimCLR GPNs and two matched GSNs without the Zenodo analysis archives.
 
 ## Additional backbone IDs
 

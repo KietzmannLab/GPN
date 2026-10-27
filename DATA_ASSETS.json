@@ -87,10 +87,6 @@
         "archive": "science-paper-rdms-01-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
       },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-B-ILSVRC.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
-      },
       "test_embeddings": {
         "archive": "datasets.zip",
         "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
@@ -147,10 +143,6 @@
       "rdm": {
         "archive": "science-paper-rdms-02-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
-      },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-B-SimCLR.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_0_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
       },
       "test_embeddings": {
         "archive": "datasets.zip",
@@ -303,10 +295,6 @@
       "rdm": {
         "archive": "science-paper-rdms-01-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
-      },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-R-ILSVRC.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_0_bbv1_gaze_dg3_indp_0.25_rnndp_0.25_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
       },
       "test_embeddings": {
         "archive": "datasets.zip",
@@ -582,10 +570,6 @@
         "archive": "science-paper-rdms-02-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
       },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-RS-SimCLR.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_1_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
-      },
       "test_embeddings": {
         "archive": "datasets.zip",
         "path": "datasets/coco_NSD_dg3fix91_r50v6ap_7fix_test_515.h5"
@@ -738,10 +722,6 @@
         "archive": "science-paper-rdms-01-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
       },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-S-ILSVRC.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv1_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
-      },
       "test_embeddings": {
         "archive": "datasets.zip",
         "path": "datasets/coco_NSD_dg3fix91_r50v1ap_7fix_test_515.h5"
@@ -798,10 +778,6 @@
       "rdm": {
         "archive": "science-paper-rdms-02-of-12.zip",
         "path": "rdms/gpn_rdms_gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1.pkl"
-      },
-      "saved_activations": {
-        "archive": "science-paper-core-activations-GPN-S-SimCLR.zip",
-        "path": "saved_actvs/gpn_lstm_n_1024_tm_3_t_6_recurrence_0_loc_1_bbv6_gaze_dg3_indp_0.1_rnndp_0.1_gcpc_1_semc_0_scc_0_locmse_0_insplit_0_reg_1_tr_train_515_gdva_NSD_lr_0.0001_num_1_repr.pkl"
       },
       "test_embeddings": {
         "archive": "datasets.zip",
